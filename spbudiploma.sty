@@ -21,7 +21,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T2A]{fontenc}
 \usepackage[english,russian]{babel}
-
+\renewcommand{\rmdefault}{Tempora-TLF}
 
 % Межстрочный интервал = 1.5pt
 \usepackage{setspace}
@@ -38,7 +38,7 @@
 % Не нумеруются в содержании, по уровню вложенности: 
 \newcommand{\specialsection}[1]{
     \phantomsection
-    \bigskip\smallskip\hspace{-12.5mm}
+    \bigskip\smallskip\hspace{-13.8mm}
     \normalfont\fontsize{18}{18}\textbf{#1}
     \par\bigskip\normalfont\normalsize
     \addcontentsline{toc}{section}{#1}
@@ -48,10 +48,11 @@
 \usepackage{titlesec}
 % Раздел: 18pt, добавляем слово "Глава"
 \titleformat{\section}
-{\normalfont\fontsize{18}{18}\bfseries}{Глава \thesection. \hskip-1em}{1em}{}
+{\fontsize{18}{18}\bfseries}{
+\hspace{-1.5mm}Глава \thesection. \hskip-1em}{1em}{}
 % Подраздел: 16pt
 \titleformat{\subsection}
-{\normalfont\fontsize{16}{16}\bfseries}{\thesubsection}{1em}{}
+{\fontsize{16}{16}\bfseries}{\hspace{-0.2mm}\thesubsection}{1em}{}
 
 % Сожержание
 % Выравнивание заголовка по центру (да, да, хак с отступом слева \hspace{0.31\textwidth})
