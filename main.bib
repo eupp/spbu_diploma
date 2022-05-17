@@ -195,7 +195,28 @@
   publisher={ACM New York, NY, USA}
 }
 
+@article{Podkopaev-al:POPL19,
+  title={Bridging the gap between programming languages and hardware weak memory models},
+  author={Podkopaev, Anton and Lahav, Ori and Vafeiadis, Viktor},
+  journal={Proceedings of the ACM on Programming Languages},
+  volume={3},
+  number={POPL},
+  pages={1--31},
+  year={2019},
+  publisher={ACM New York, NY, USA}
+}
+
 % weak memory / sem.dep
+
+@inproceedings{Manson-al:POPL05,
+  author =        {Jeremy Manson and William Pugh and Sarita V. Adve},
+  booktitle =     {POPL 2005},
+  pages =         {378--391},
+  publisher =     {ACM},
+  title =         {The {Java} Memory Model},
+  year =          {2005},
+  doi =           {10.1145/1040305.1040336},
+}
 
 @inproceedings{Kang-al:POPL17,
   author =        {Jeehoon Kang and Chung-Kil Hur and Ori Lahav and
@@ -299,6 +320,30 @@
   doi =           {10.1145/2627752},
 }
 
+@inproceedings{Batty-al:POPL11,
+  author =        {Mark Batty and Scott Owens and Susmit Sarkar and
+                   Peter Sewell and Tjark Weber},
+  booktitle =     {POPL 2011},
+  pages =         {55--66},
+  publisher =     {ACM},
+  title =         {Mathematizing {C++} Concurrency},
+  year =          {2011},
+  doi = {10.1145/1925844.1926394},
+}
+
+@inproceedings{Batty-al:ESOP15,
+  author =        {Mark Batty and Kayvan Memarian and Kyndylan Nienhuis and
+                   Jean Pichon{-}Pharabod and Peter Sewell},
+  booktitle =     {ESOP},
+  pages =         {283--307},
+  publisher =     {Springer},
+  series =        {LNCS},
+  title =         {The Problem of Programming Language Concurrency Semantics},
+  volume =        {9032},
+  year =          {2015},
+  doi  = {10.1007/978-3-662-46669-8_12},
+}
+
 % model checking
 
 @inproceedings{Norris-Demsky:OOPSLA2013,
@@ -315,4 +360,103 @@
   booktitle={Proceedings of the 40th ACM SIGPLAN Conference on Programming Language Design and Implementation},
   pages={1--15},
   year={2019}
+}
+
+% misc.
+
+@article{McKenney:2010,
+  title={Memory barriers: a hardware view for software hackers},
+  author={McKenney, Paul E},
+  journal={Linux Technology Center, IBM Beaverton},
+  year={2010}
+}
+
+@book{Milner:1971,
+  title={An algebraic definition of simulation between programs},
+  author={Milner, Robin},
+  publisher={Citeseer}
+}
+
+% proof assistants
+
+@software{Coq,
+  author       = {{The Coq Development Team}},
+  title        = {{The Coq Proof Assistant}},
+  month        = jan,
+  year         = 2021,
+  publisher    = {Zenodo},
+  version      = {8.13},
+  doi          = {10.5281/zenodo.4501022},
+  url          = {https://doi.org/10.5281/zenodo.4501022}
+}
+
+% author's publications
+
+@article{Moiseenko-al:OOPSLA22,
+  title={Model Checking on Multi-Execution Memory Models},
+  author={Moiseenko, E and Kokologiannakis, M and Vafeiadis, V},
+  journal={Proceedings of the ACM on Programming Languages},
+  volume={6},
+  number={OOPSLA},
+  pages={},
+  year={2022},
+  publisher={ACM New York, NY, USA},
+  authorscopus  = {true},
+  addendum      = {(Scopus)},
+}
+
+@inproceedings{Moiseenko-al:ECOOP20,
+  title		= {Reconciling Event Structures with Modern Multiprocessors},
+  author	= {Moiseenko, E and Podkopaev, A and Lahav, O and
+		  Melkonian, O and Vafeiadis, V},
+  booktitle	= {European Conference on Object-Oriented Programming, ECOOP 2020},
+  year		= {2020},
+  pages		= {5:1--5:26},
+  series	= {Leibniz International Proceedings in Informatics
+		  (LIPIcs)},
+  isbn		= {978-3-95977-154-2},
+  issn		= {1868-8969},
+  volume	= {166},
+  opteditor	= {Robert Hirschfeld and Tobias Pape},
+  publisher	= {Schloss Dagstuhl--Leibniz-Zentrum für Informatik},
+  address	= {Dagstuhl, Germany},
+  url		= {https://drops.dagstuhl.de/opus/volltexte/2020/13162},
+  urn		= {urn:nbn:de:0030-drops-131622},
+  doi		= {10.4230/LIPIcs.ECOOP.2020.5},
+  annote	= {Keywords: Weak Memory Consistency, Event Structures, IMM,
+		  Weakestmo},
+  options       = {maxnames=99},
+  language      = {english},
+  authorscopus  = {true},
+  addendum      = {(Scopus)},
+}
+
+
+@article{Moiseenko-al:PCS21,
+  title         = {A Survey of Programming Language Memory Models},
+  author        = {Moiseenko, E and Podkopaev, A and Koznov, D},
+  journal       = {Programming and Computer Software},
+  volume        = {47},
+  number        = {6},
+  pages         = {439--456},
+  year          = {2021},
+  publisher     = {Springer},
+  language      = {english},
+  authorscopus  = {true},
+  addendum      = {(ВАК, Scopus)},
+}
+
+@article{Gladstein-al:ISPRAS21,
+  title         = {Mechanized Theory of Event Structures: A Case of Parallel Register Machine},
+  author        = {Gladstein, V and Mikhailovskii, D and Moiseenko, E and Trunov, A},
+  journal       = {Труды Института системного программирования РАН},
+  volume        = {33},
+  number        = {3},
+  pages         = {143--154},
+  year          = {2021},
+  publisher     = {Институт системного программирования им. ВП Иванникова РАН},
+  options       = {maxnames=99},
+  language      = {russian},
+  authorvak     = {true},
+  addendum      = {(ВАК)},
 }
