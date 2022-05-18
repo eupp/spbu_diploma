@@ -1,0 +1,118 @@
+{
+\newcommand{\XScale}{1}
+\newcommand{\YScale}{0.7}
+
+\begin{figure}[t]
+  \begin{subfigure}[b]{.48\textwidth}\centering
+  \begin{tikzpicture}[xscale=\XScale,yscale=\YScale]
+  \node (init) at (1,  1.5) {$\Init$};
+
+  %% \node (in1) at ( 0,  2) {$\ewlab{}{x}{0}{}$};
+  %% \node (in2) at ( 2,  2) {$\ewlab{}{y}{0}{}$};
+
+  \node (i11) at ( 0,  0) {$\rlab{}{x}{0}{}$};
+  \node (i12) at ( 0, -2) {$\wlab{}{y}{1}{}$};
+
+  \node (i21) at ( 2,  0) {$\rlab{}{y}{0}{}$};
+  \node (i22) at ( 2, -2) {$\wlab{}{x}{0}{}$};
+
+  \draw[po] (i11) edge node[left] {\small$\lPO$} (i12);
+  \draw[po] (i21) edge node[left] {\small$\lPO$} (i22);
+  \draw[ppo,bend left=10] (i21) edge node[right] {\small$\lPPO$} (i22);
+
+  \draw[rf,bend right=60] (init) edge node[above,pos=0.5] {\small$\lRF$} (i11);
+  \draw[rf,bend left =60] (init) edge node[above,pos=0.5] {\small$\lRF$} (i21);
+
+  \draw[po] (init) edge node[left]  {\small$\lPO$} (i11);
+  \draw[po] (init) edge node[right] {\small$\lPO$} (i21);
+  \end{tikzpicture}
+  %% \caption{$\Glb$: Execution graph of \ref{ex:LB}.}
+  %% \label{fig:lbWeak1}
+  \end{subfigure}\hfill
+  %
+  \begin{subfigure}[b]{.48\textwidth}\centering
+  \begin{tikzpicture}[xscale=\XScale,yscale=\YScale]
+  \node (init) at (1,  1.5) {$\Init$};
+
+  %% \node (in1) at ( 0,  2) {$\ewlab{}{x}{0}{}$};
+  %% \node (in2) at ( 2,  2) {$\ewlab{}{y}{0}{}$};
+
+  \node (i11) at ( 0,  0) {$\rlab{}{x}{0}{}$};
+  \node (i12) at ( 0, -2) {$\wlab{}{y}{1}{}$};
+
+  \node (i21) at ( 2,  0) {$\rlab{}{y}{0}{}$};
+  \node (i22) at ( 2, -2) {$\wlab{}{x}{0}{}$};
+
+  \draw[po] (i11) edge node[left] {\small$\lPO$} (i12);
+  \draw[po] (i21) edge node[left] {\small$\lPO$} (i22);
+  \draw[ppo,bend left=10] (i21) edge node[right] {\small$\lPPO$} (i22);
+
+  \draw[rf] (i22)  edge node[below] {\small$\lRF$} (i11);
+  \draw[rf,bend left=60] (init) edge node[above,pos=0.5] {\small$\lRF$} (i21);
+
+  \draw[po] (init) edge node[left]  {\small$\lPO$} (i11);
+  \draw[po] (init) edge node[right] {\small$\lPO$} (i21);
+  \end{tikzpicture}
+  %% \caption{Execution of \ref{ex:LB-TA} and \ref{ex:LB-fake}.}
+  %% \label{fig:LB-nodep-execs}
+  \end{subfigure}
+
+  \begin{subfigure}[b]{.48\textwidth}\centering
+  \begin{tikzpicture}[xscale=\XScale,yscale=\YScale]
+  \node (init) at (1,  1.5) {$\Init$};
+
+  %% \node (in1) at ( 0,  2) {$\ewlab{}{x}{0}{}$};
+  %% \node (in2) at ( 2,  2) {$\ewlab{}{y}{0}{}$};
+
+  \node (i11) at ( 0,  0) {$\rlab{}{x}{0}{}$};
+  \node (i12) at ( 0, -2) {$\wlab{}{y}{1}{}$};
+
+  \node (i21) at ( 2,  0) {$\rlab{}{y}{1}{}$};
+  \node (i22) at ( 2, -2) {$\wlab{}{x}{1}{}$};
+
+  \draw[po] (i11) edge node[left] {\small$\lPO$} (i12);
+  \draw[po] (i21) edge node[left] {\small$\lPO$} (i22);
+  \draw[ppo,bend left=10] (i21) edge node[right] {\small$\lPPO$} (i22);
+
+  \draw[rf] (init) edge node[below] {} (i11);
+  \draw[rf] (i12)  edge node[below] {\small$\lRF$} (i21);
+
+  \draw[po] (init) edge node[left]  {\small$\lPO$} (i11);
+  \draw[po] (init) edge node[right] {\small$\lPO$} (i21);
+  \end{tikzpicture}
+  %% \caption{$\Glb$: Execution graph of \ref{ex:LB}.}
+  %% \label{fig:lbWeak1}
+  \end{subfigure}\hfill
+  %
+  \begin{subfigure}[b]{.48\textwidth}\centering
+  \begin{tikzpicture}[xscale=\XScale,yscale=\YScale]
+  \node (init) at (1,  1.5) {$\Init$};
+
+  %% \node (in1) at ( 0,  2) {$\ewlab{}{x}{0}{}$};
+  %% \node (in2) at ( 2,  2) {$\ewlab{}{y}{0}{}$};
+
+  \node (i11) at ( 0,  0) {$\rlab{}{x}{1}{}$};
+  \node (i12) at ( 0, -2) {$\wlab{}{y}{1}{}$};
+
+  \node (i21) at ( 2,  0) {$\rlab{}{y}{1}{}$};
+  \node (i22) at ( 2, -2) {$\wlab{}{x}{1}{}$};
+
+  \draw[po] (i11) edge node[left] {\small$\lPO$} (i12);
+  \draw[po] (i21) edge node[left] {\small$\lPO$} (i22);
+  \draw[ppo,bend left=10] (i21) edge node[right] {\small$\lPPO$} (i22);
+
+  \draw[rf] (i22) edge node[below] {} (i11);
+  \draw[rf] (i12) edge node[below] {\small$\lRF$} (i21);
+
+  \draw[po] (init) edge node[left]  {\small$\lPO$} (i11);
+  \draw[po] (init) edge node[right] {\small$\lPO$} (i21);
+  \end{tikzpicture}
+  %% \caption{Execution of \ref{ex:LB-TA} and \ref{ex:LB-fake}.}
+  %% \label{fig:LB-nodep-execs}
+  \end{subfigure}
+
+\caption{Графы сценариев исполнения программы \ref{ex:LB-nodep}.}
+\label{fig:LB-nodep-execs}
+\end{figure}
+
+}
