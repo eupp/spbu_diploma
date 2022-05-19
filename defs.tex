@@ -30,6 +30,11 @@
 % shorter subset notation
 \newcommand{\suq}{\subseteq}
 
+% shorter partial order notation
+\newcommand{\squ}{\sqsubset}
+\newcommand{\squq}{\sqsubseteq}
+
+
 % homomorphism arrow (TODO: change notations)
 \newcommand{\homf}[1][{}]{\underset{#1}{\leadsto}}
 
@@ -95,6 +100,9 @@
 
 % prefix order
 \newcommand{\prefle}{\preccurlyeq}
+
+% such that notation in sets
+\newcommand{\sth}{\; | \;}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%  LTS Defs  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -183,11 +191,20 @@
 %%%%  Weak Memory Defs  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newcommand{\Event}{\mathsf{Event}}
 \newcommand{\Tid}{\mathsf{Tid}}
 \newcommand{\Loc}{\mathsf{Loc}}
 \newcommand{\Val}{\mathsf{Val}}
 \newcommand{\Lab}{\mathsf{Lab}}
 \newcommand{\Mod}{\mathsf{Mod}}
+
+\newcommand{\na}{\mathtt{na}}
+\newcommand{\pln}{\mathtt{pln}}
+\newcommand{\rlx}{\mathtt{rlx}}
+\newcommand{\rel}{{\mathtt{rel}}}
+\newcommand{\acq}{{\mathtt{acq}}}
+\newcommand{\acqrel}{{\mathtt{acqrel}}}
+\newcommand{\sco}{{\mathtt{sc}}}
 
 \newcommand{\isex}{{\mathtt{ex}}}
 \newcommand{\isnotex}{{\operatorname{\mathtt{not-ex}}}}
@@ -212,6 +229,7 @@
 \newcommand{\initval}{\bot}
 
 \newcommand{\lE}{{\mathtt{E}}}
+\newcommand{\lEi}{{\mathtt{E}_{t_0}}}
 \newcommand{\Init}{\mathsf{Init}}
 
 \newcommand{\lLAB}{{\mathtt{lab}}}
@@ -461,14 +479,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% abbrevations
-\newcommand{\ie}{\textit{i.e.,}\xspace}
-\newcommand{\eg}{\textit{e.g.,}\xspace}
-\newcommand{\etc}{\textit{etc.}\xspace}
-\newcommand{\sth}{\textit{s.t.}\xspace}
-\newcommand{\etal}{\textit{et~al.}\xspace}
-\newcommand{\wrt}{\textit{w.r.t.}\xspace}
-\newcommand{\aka}{\textit{a.k.a.}\xspace}
-\newcommand{\corr}{\textit{corr.}\xspace}
+%% \newcommand{\ie}{\textit{i.e.,}\xspace}
+%% \newcommand{\eg}{\textit{e.g.,}\xspace}
+%% \newcommand{\etc}{\textit{etc.}\xspace}
+%% \newcommand{\sth}{\textit{s.t.}\xspace}
+%% \newcommand{\etal}{\textit{et~al.}\xspace}
+%% \newcommand{\wrt}{\textit{w.r.t.}\xspace}
+%% \newcommand{\aka}{\textit{a.k.a.}\xspace}
+%% \newcommand{\corr}{\textit{corr.}\xspace}
 
 % definitions/lemmas/theorems etc
 \newtheorem{lemma}{Лемма}
