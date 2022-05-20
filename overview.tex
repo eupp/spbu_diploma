@@ -60,7 +60,7 @@
 На \cref{fig:LB-nodep-execs} показаны графы сценариев исполнения, 
 соответствующие программе \ref{ex:LB-nodep}.
 
-\input{execs-ex}
+\input{fig/execs-ex}
 
 Далее введем необходимые формальные определения.
 Будем полагать, что $\Tid \suq \N$ обозначает множество 
@@ -117,6 +117,7 @@
 Наконец, представим формальное определение графов сценариев исполнения. 
 
 \begin{definition}
+  \label{def:exec-graph}
   \emph{Граф сценария исполнения} (\emph{execution graph}) $G$ 
   это кортеж $\tup{\lE, \lTID, \lLAB, \lPO, \lRF, \lCO}$.
   Рассмотрим определения каждого компонента этого кортежа. 
@@ -185,11 +186,163 @@
 \begin{definition}
   \emph{Аксиоматическая модель памяти} (\emph{axiomatic memory model}) $M$ 
   задается как подмножество графов сценариев исполнения: $M \suq \ExecG$.
+  Если $G \in M$ тогда будем также говорить, что граф $G$ 
+  \emph{консистентен} с точки зрения модели $M$.
 \end{definition}
 
 \subsection*{Модель памяти \IMM}
 
-Краткое введение в модель памяти \IMM.
+В этом разделе приводится краткий разбор 
+модели памяти \IMM~\cite{podkopaev2019:imm},
+которая предоставляет абстракцию над моделями
+конкретных мультипроцессоров, в частности \Intel, \ARM, и \POWER.
+Основной особенностью этих моделей, включая \IMM,
+является то, что они отслеживают \emph{синтаксические зависимости}
+между событиями в сценарии исполнения, а затем 
+с их помощью определяют отношение \emph{сохраняемого программного порядка}
+(\emph{preserved program order}) $\lPPO$, 
+которое является подмножество обычного программного порядка. 
+События, которые связаны сохраняемым программным порядком, 
+выполняются процессором согласно этому порядку, 
+а несвязанные события могут выполняться в произвольном порядке. 
+ 
+Рассмотрим вновь программы \ref{ex:LB-nodep}, 
+\ref{ex:LB-fakedep} и \ref{ex:LB-dep}.
+Модель \IMM допускает сценарий исполнений 
+с результатом $a = b = 1$ для программы \ref{ex:LB-nodep}, 
+но не для \ref{ex:LB-fakedep} и \ref{ex:LB-dep}.
+Соответствующий этому сценарию граф для 
+программы \ref{ex:LB-nodep} показан на~\cref{fig:LB-nodep-ppo-exec},
+а для для \ref{ex:LB-fakedep} и \ref{ex:LB-dep} на~\cref{fig:LB-dep-ppo-exec}.
+Заметим, что в графе, показанном на~\cref{fig:LB-nodep-ppo-exec}, 
+события в левом потоке не связаны отношением $\lPPO$.
+В графе, показанном на~~\cref{fig:LB-nodep-ppo-exec}, напротив, 
+события в обоих потоках связанны отношением $\lPPO$,
+так как между соответствющими инструкциями 
+есть \emph{зависимость по данным}.
+Кроме того, объединение отношений $\lPPO$ и $\lRFE$ образует цикл. 
+Именно из-за наличия этого цикла данный 
+граф считается неконсистентным с точки зрения модели~\IMM.
+
+\input{fig/lb-execs}
+
+Далее приводится формальное определение понятия 
+зависимостей и модели \IMM.
+
+\begin{definition}
+  \label{def:imm-exec-graph}
+  Графом сценария исполнения в модели \IMM называется 
+  обычный граф сценария исполнения (\cref{def:exec-graph}), 
+  дополненный отношениями 
+  \emph{зависимости по данным} (\emph{data dependency}) $\lDATA$, 
+  \emph{зависимости по потоку управления} (\emph{control dependency}) $\lCTRL$, 
+  и \emph{зависимости по целевому адресу} (\emph{address dependency}) $\lADDR$, 
+  и \emph{зависимость по операции \CAS} (\emph{\CAS dependency}) $\lRMWDEP$.
+  Объединенное отношение \emph{зависимости} (\emph{dependency}) 
+  определяется следующим образом: 
+  $$ \lDEPS \defeq \lDATA \cup \lCTRL \cup \lADDR \seq \lPO^? \cup \lRMWDEP. $$
+  В контексте модели \IMM под графом сценария исполнения будем 
+  подразумевать граф, дополненный отношениями зависимости. 
+\end{definition}
+
+%% \begin{definition}
+%%   \label{def:imm-ppo}
+%%   Отношение \emph{сохраняемого программного порядка} (\emph{preserved program order})
+%%   определяется следующим образом:
+%%   $$ \lPPO \defeq [\lR] \seq (\lDEPS \cup \lRFI)^+ \seq [W]. $$
+%% \end{definition}
+
+\begin{definition}
+  \label{def:imm-aux-rel}
+  В модели \IMM для графа $G$ вводятся следующием производные отношения%
+  \footnote{Подробное описание приведенных здесь отношений может 
+   быть найдено в~\cite{podkopaev2019:imm,Moiseenko-al:ECOOP20}}.
+
+  \begin{itemize}
+
+    \item Отношение \emph{порядка барьеров} (\emph{barrier-order-before}):
+      $$ \lBOB \defeq \lPO \seq [\lW^{\rel\squq}] \cup 
+                      [\lR^{\acq\squq}] \seq \lPO \cup 
+                      \lPO \seq [\lF] \cup [\lF] \seq \lPO \cup 
+                      [\lW^{\rel\squq}] \seq \lPO_{\lLOC} \seq [\lW]. $$
+
+    \item Отношение \emph{сохраняемого программного порядка} 
+      (\emph{preserved program order}):
+      $$ \lPPO \defeq [\lR] \seq (\lDEPS \cup \lRFI)^+ \seq [W] $$
+
+    \item Отношение \emph{обхода} (\emph{detour}):
+      $$ \lDETOUR \defeq (\lCOE \seq \lRFE) \cap \lPO. $$
+
+    \item Отношение \emph{синхронизируется-с} (\emph{synchronizes-with}):
+     $$ \lSW  \defeq [\lE^{\rel\squq}]             \seq 
+                     ([\lF] \seq \lPO)^?           \seq 
+                     ([\lW] \seq \lPO_{\lLOC})^?   \seq
+                     (\lRF \seq \lRMW)^*           \seq 
+                     \lRF \seq (\lPO \seq [\lF])^? \seq 
+                     [\lE^{\acq\squq}]. 
+     $$
+
+    \item Отношение \emph{произошло-до} (\emph{happens-before}):
+      $$ \lHB \defeq (\lPO \cup \lSW)^+. $$
+
+    \item Отношение \emph{читает-до} (\emph{reads-before} или \emph{from-reads}):
+      $$ \lFR \defeq \lRF^{-1} \seq \lCO. $$
+
+    \item \emph{Расширенный порядок когерентности} 
+      (\emph{extended coherence order}):
+      $$ \lECO \defeq (\lCO \cup \lRF \cup \lFR)^+. $$
+
+    \item Отношение \emph{последовательно-упорядочен-до}
+      (\emph{sequentially consistent before}):
+      $$ \lSCB \defeq \lPO \cup
+                      \lPO\rst{\neq \lLOC} \seq \lHB \seq 
+                      \lPO\rst{\neq \lLOC} \cup
+                      \lHB\rst{\lLOC} \cup
+                      \lCO \cup \lFR. $$
+
+    \item Частиный порядок \emph{базовой последовательной упорядоченности}:
+      $$ \lPSCB \defeq ([\lE^\sco] \cup [\lF^\sco] \seq \lHB^?) \seq 
+                         \lSCB \seq 
+                       ([\lE^\sco] \cup \lHB^?\seq[\lF^\sco]). 
+      $$ 
+
+    \item Частиный порядок \emph{последовательной упорядоченности барьеров}:
+      $$ \lPSCF \defeq [\lF^\sco] \seq 
+                       (\lHB \cup \lHB \seq \lECO \seq \lHB) \seq 
+                       [\lF^\sco]. 
+      $$ 
+
+    \item Частиный порядок \emph{последовательной упорядоченности}:
+      $$ \lPSC \defeq \lPSCB \cup \lPSCF. $$ 
+
+    \item Вспомогательное \emph{ацикличное} отношение (\emph{acyclic relation}):
+      $$ \lAR \defeq \lRFE \cup \lBOB \cup \lPPO \cup \lDETOUR \cup \lPSCF. $$
+    
+  \end{itemize}
+
+\end{definition}
+
+\begin{definition}
+  Граф $G$ является консистентным с точки зрения \IMM 
+  если выполняются следующие условия:
+  
+  \begin{itemize}
+
+    \item $\lAR$ ациклично;
+      \labelAxiom{imm-no-thin-air}{ax:imm-noota}
+
+    \item $\lHB_{\IMM} \seq \lECO^?$ иррефлексивно;
+      \labelAxiom{imm-coherent}{ax:imm-coh}
+
+    \item $\lRMW \cap (\lFR \seq \lCO) = \emptyset$.
+      \labelAxiom{rmw-atomic}{ax:imm-atom}
+
+    \item $\lPSC$ ациклично.
+      \labelAxiom{imm-sequential-consistency}{ax:imm-sc}
+
+  \end{itemize}
+
+\end{definition}
 
 \subsection*{Модель памяти \Wkm}
 
@@ -197,3 +350,4 @@
 Определеление структур событий \Wkm,
 их консистентности, и операционной семантики
 для инкрементального построения. 
+

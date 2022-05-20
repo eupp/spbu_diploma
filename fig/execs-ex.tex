@@ -16,9 +16,9 @@
   \node (i21) at ( 2,  0) {$\rlab{}{y}{0}{}$};
   \node (i22) at ( 2, -2) {$\wlab{}{x}{0}{}$};
 
-  \draw[po] (i11) edge node[left] {\small$\lPO$} (i12);
-  \draw[po] (i21) edge node[left] {\small$\lPO$} (i22);
-  \draw[ppo,bend left=10] (i21) edge node[right] {\small$\lPPO$} (i22);
+  \draw[po] (i11) edge node[right] {\small$\lPO$} (i12);
+  \draw[po] (i21) edge node[left ] {\small$\lPO$} (i22);
+  %% \draw[ppo,bend left=10] (i21) edge node[right] {\small$\lPPO$} (i22);
 
   \draw[rf,bend right=60] (init) edge node[above,pos=0.5] {\small$\lRF$} (i11);
   \draw[rf,bend left =60] (init) edge node[above,pos=0.5] {\small$\lRF$} (i21);
@@ -43,9 +43,9 @@
   \node (i21) at ( 2,  0) {$\rlab{}{y}{0}{}$};
   \node (i22) at ( 2, -2) {$\wlab{}{x}{0}{}$};
 
-  \draw[po] (i11) edge node[left] {\small$\lPO$} (i12);
-  \draw[po] (i21) edge node[left] {\small$\lPO$} (i22);
-  \draw[ppo,bend left=10] (i21) edge node[right] {\small$\lPPO$} (i22);
+  \draw[po] (i11) edge node[right] {\small$\lPO$} (i12);
+  \draw[po] (i21) edge node[left ] {\small$\lPO$} (i22);
+  %% \draw[ppo,bend left=10] (i21) edge node[right] {\small$\lPPO$} (i22);
 
   \draw[rf] (i22)  edge node[below] {\small$\lRF$} (i11);
   \draw[rf,bend left=60] (init) edge node[above,pos=0.5] {\small$\lRF$} (i21);
@@ -70,9 +70,9 @@
   \node (i21) at ( 2,  0) {$\rlab{}{y}{1}{}$};
   \node (i22) at ( 2, -2) {$\wlab{}{x}{1}{}$};
 
-  \draw[po] (i11) edge node[left] {\small$\lPO$} (i12);
-  \draw[po] (i21) edge node[left] {\small$\lPO$} (i22);
-  \draw[ppo,bend left=10] (i21) edge node[right] {\small$\lPPO$} (i22);
+  \draw[po] (i11) edge node[right] {\small$\lPO$} (i12);
+  \draw[po] (i21) edge node[left ] {\small$\lPO$} (i22);
+  %% \draw[ppo,bend left=10] (i21) edge node[right] {\small$\lPPO$} (i22);
 
   \draw[rf] (init) edge node[below] {} (i11);
   \draw[rf] (i12)  edge node[below] {\small$\lRF$} (i21);
@@ -97,11 +97,11 @@
   \node (i21) at ( 2,  0) {$\rlab{}{y}{1}{}$};
   \node (i22) at ( 2, -2) {$\wlab{}{x}{1}{}$};
 
-  \draw[po] (i11) edge node[left] {\small$\lPO$} (i12);
-  \draw[po] (i21) edge node[left] {\small$\lPO$} (i22);
-  \draw[ppo,bend left=10] (i21) edge node[right] {\small$\lPPO$} (i22);
+  \draw[po] (i11) edge node[right] {\small$\lPO$} (i12);
+  \draw[po] (i21) edge node[left ] {\small$\lPO$} (i22);
+  %% \draw[ppo,bend left=10] (i21) edge node[right] {\small$\lPPO$} (i22);
 
-  \draw[rf] (i22) edge node[below] {} (i11);
+  \draw[rf] (i22) edge node[below] {}             (i11);
   \draw[rf] (i12) edge node[below] {\small$\lRF$} (i21);
 
   \draw[po] (init) edge node[left]  {\small$\lPO$} (i11);

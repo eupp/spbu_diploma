@@ -6,7 +6,7 @@
 \newcommand{\set}[1]{\{#1\}}
 
 % sequence notation
-\newcommand{\seq}[1]{[{#1}]}
+\newcommand{\seq}{;}
 
 % tuple with angle brackets
 \newcommand{\tup}[1]{\langle #1 \rangle}
@@ -278,7 +278,6 @@
 
 \newcommand{\lPO}{{\color{colorPO}\mathtt{po}}}
 \newcommand{\lPOimm}{{\color{colorPO}\mathtt{po_{imm}}}}
-\newcommand{\lPPO}{{\color{colorPPO}\mathtt{ppo}}}
 \newcommand{\lCF}{{\color{colorCF}\mathtt{cf}}}
 \newcommand{\lCFimm}{{\color{colorCF}\mathtt{cf_{imm}}}}
 \newcommand{\lECF}{{\color{colorECF}\mathtt{ecf}}}
@@ -297,6 +296,31 @@
 \newcommand{\lHB}{{\color{colorHB}\mathtt{hb}}}
 \newcommand{\lBOB}{{\mathtt{bob}}}
 \newcommand{\lSC}{{\color{colorSC}\mathtt{sc}}}
+
+\newcommand{\lDETOUR}{{{\color{colorDETOUR}\mathtt{detour}}}}
+\newcommand{\lDEPS}{{{\color{colorDEPS}\mathtt{deps}}}}
+\newcommand{\lCTRL}{{{\color{colorDEPS}\mathtt{ctrl}}}}
+\newcommand{\lDATA}{{{\color{colorDEPS}\mathtt{data}}}}
+\newcommand{\lADDR}{{{\color{colorDEPS}\mathtt{addr}}}}
+\newcommand{\lRMWDEP}{{{\color{colorDEPS}\mathtt{casdep}}}}
+\newcommand{\lPPO}{{{\color{colorPPO}\mathtt{ppo}}}}
+\newcommand{\lAR}{\mathtt{ar}}
+
+\newcommand{\lSCB}{{\color{colorSCB}\mathtt{scb}}}
+\newcommand{\lPSC}{{\color{colorPSC}\mathtt{psc}}}
+\newcommand{\lPSCB}{\lPSC_{\rm base}}
+\newcommand{\lPSCF}{\lPSC_\lF}
+
+\newcommand{\lmakeE}[1]{#1\mathtt{e}}
+\newcommand{\lJFE}{\lmakeE{\lJF}}
+\newcommand{\lRFE}{\lmakeE{\lRF}}
+\newcommand{\lCOE}{\lmakeE{\lCO}}
+\newcommand{\lFRE}{\lmakeE{\lFR}}
+\newcommand{\lmakeI}[1]{#1\mathtt{i}}
+\newcommand{\lJFI}{\lmakeI{\lJF}}
+\newcommand{\lRFI}{\lmakeI{\lRF}}
+\newcommand{\lCOI}{\lmakeI{\lCO}}
+\newcommand{\lFRI}{\lmakeI{\lFR}}
 
 \tikzset{
    every path/.style={>=stealth},
@@ -392,7 +416,6 @@
 \newcommand{\rfcomment}[1]{\color{teal}{~~\texttt{/\!\!/}\textit{#1}}}
 \newcommand{\nocomment}[1]{\color{red!60!black}{~~\texttt{/\!\!/}\textit{#1}}}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%  Proper Names and Abbreviations  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -473,6 +496,10 @@
 \newcommand{\Verisoft}{\textsc{Verisoft}\xspace}
 \newcommand{\CHESS}{\textsc{CHESS}\xspace}
 \newcommand{\wmc}{\textsc{WMC}\xspace}
+
+%% other abbrevations
+
+\newcommand{\CAS}{\textsc{CAS}\xspace}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%  Tex Utils  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
