@@ -146,28 +146,38 @@
       Это отношение полностью упорядочивает все события внутри одного потока
       согласно потоку управления программы. 
       Также полагается, что инициализирующие события $\lEi$ упорядочены 
-      отношением $\lPO$ до всех других событий. 
+      отношением $\lPO$ до всех других событий.
+      Также определим отношение \emph{непосредственного программного порядка}
+      (\emph{immediate program order}).
+      Событие $e_1$ является непосредственным $\lPO$-предшественником $e_2$ 
+      если $e_1$ предшествует $e_2$ в отношении $\lPO$
+      и между ними нет других события в порядке $\lPO$.
+      \begin{equation*}
+        \lPOimm \defeq \lPO \setminus (\lPO \seq \lPO)
+      \end{equation*}
 
-    \item $\lRF \suq \lW \times \lR$ --- это отношение 
+    \item $\lRF \suq [\lW] \seq \lEQLOC \cap \lEQVAL \seq [\lR]$ --- это отношение 
       \emph{читает-из} (\emph{reads-from}), которое соединяет 
       событие-запись с событиями-чтениями, выполняющими операцию чтения из него. 
       Связанные события записи и чтения должны иметь одну и ту же локацию и значение, 
-      кроме того, для каждое событие чтения должно быть связано только с одним событием записи.
+      кроме того, каждое событие чтения должно быть связано только с одним событием записи.
       \begin{equation*} 
         \begin{array}{rcl}
-          \tup{w,r} \in \lRF 
-             & \implies & \lLOC(w) = \lLOC(r) \wedge \lVAL(w) = \lVAL(r) \\
-          %
           \tup{w_1,r} \in \lRF \wedge \tup{w_2,r} \in \lRF 
              & \implies & w_1 = w_2 \\
         \end{array}
-      \end{equation*} 
+      \end{equation*}
+      Также определим внутреннею (\emph{internal}) $\lRFI$ и внешнюю (\emph{external}) $\lRFE$ версию
+      отношения ``читает-из'', в зависимости от того принадлежат ли события записи и чтения
+      одному и тому же потоку или нет.
+      \[\def\arraystretch{1}
+       \begin{array}{c@{\qquad}c@{\qquad}c@{\qquad}c}
+         \lRFI \defeq \lRF \cap \lPO      &
+         \lRFE \defeq \lRF \setminus \lPO
+       \end{array}
+      \]
 
-    %%   We also define the notion of \emph{external} justification: $\lJFE \defeq \lJF \setminus \lPO$.
-    %%   A read event is externally justified from a write if the write is
-    %%   not $\lPO$-before the read.
-
-    \item $\lCO \suq \lW \times \lW$ --- это отношение 
+    \item $\lCO \suq [\lW] \seq \lEQLOC \seq [\lW]$ --- это отношение 
       \emph{когерентности}, строгий частичный порядок, 
       который полностью упорядочивает все операции записи 
       в одну локацию. Это отношение кодирует порядок, 
@@ -177,6 +187,15 @@
         \forall w_1, w_2 \in \lW \ldotp~ 
           \lLOC(w_1) = \lLOC(w_2) \implies \tup{w_1, w_2} \in \lCO \cup \lCO^{-1}
       \end{equation*}
+      По аналогии с отношением ``читает-из'' также определим
+      внутреннею и внешнюю версии отношения когерентности.
+      \[\def\arraystretch{1}
+       \begin{array}{c@{\qquad}c@{\qquad}c@{\qquad}c}
+         \lCOI \defeq \lCO \cap \lPO      &
+         \lCOE \defeq \lCO \setminus \lPO
+       \end{array}
+      \]
+
 
   \end{itemize}
 
@@ -450,4 +469,107 @@ $\ese{1}{2}{1}$ и $\ese{1}{2}{2}$.
 и порожденный ей граф $G_f$, который соответствует результату $a = b = 1$.
 В этом графе событие $\ese{2}{1}{}$ ``читает-из'' события~$\ese{1}{2}{2}$.
 
+Далее введем формальное определение структуры событий в модели \Wkm.
 
+\begin{definition}
+  \label{def:eventstruct}
+  \emph{Структура событий \Wkm} (\emph{\Wkm event structure}) $S$ 
+  это кортеж $\tup{\lE, \lTID, \lLAB, \lPO, \lJF, \lEW, \lCO}$.
+  Рассмотрим определения каждого компонента этого кортежа. 
+  \begin{itemize}
+
+    \item $\lE$, $\lTID$, $\lLAB$ определены по аналогии
+      с графами сценариев исполнения (\cref{def:exec-graph}).
+
+    \item $\lPO \suq \lE \times \lE$ ---
+      это отношение программного порядка, определенное по аналогии
+      с графами сценариев исполнения (\cref{def:exec-graph}).
+      Важное отличие от случая графов сценариев исполнения
+      заключается в том, что в случае структуры событий $\lPO$
+      не обязано полностью упорядочивать все события внутри одного потока.
+      События, принадлежащие одному потоку, но никоим образом не связанные
+      отношением программного порядка, считаются \emph{конфликтующими}.
+      Соответствующее отношение конфликта $\lCF$ определено следующим образом:
+      \begin{equation*}
+        \lCF \defeq ([\lE \setminus \lEi] \seq {=_{\lTID}} \seq [\lE \setminus \lEi])
+                    \setminus (\lPO \cup \lPO^{-1})^?.
+      \end{equation*}
+
+    \item $\lJF \suq [\lW] \seq (\lEQLOC \cap \lEQVAL) \seq [\lR]$ --- 
+      это отношение \emph{обоснован-из} (\emph{justified-from}). Оно связывает
+      событие записи с событиями чтения, которые обоснованы данной записью.
+      Аналогично отношению $\lRF$ в случае
+      графов сценариев исполнения (\cref{def:exec-graph}),
+      требуется, чтобы cвязанные события имели одну и ту же локацию и значение, 
+      кроме того, каждое событие чтения должно быть связано
+      только с одним событием записи.
+      \begin{equation*} 
+        \begin{array}{rcl}
+          \tup{w_1,r} \in \lJF \wedge \tup{w_2,r} \in \lJF 
+             & \implies & w_1 = w_2 \\
+        \end{array}
+      \end{equation*} 
+      Кроме того, пологается, что чтение не может быть обосновано
+      конфликтующей записью: ${\lJF \cap \lCF = \emptyset}$.
+      По аналогии с отношением ``читает-из'' в случае
+      графов сценариев исполнения (\cref{def:exec-graph}) также определим
+      внутреннею и внешнюю версии отношения ``обоснован-из''.
+      \[\def\arraystretch{1}
+       \begin{array}{c@{\qquad}c@{\qquad}c@{\qquad}c}
+         \lJFI \defeq \lJF \cap \lPO      &
+         \lJFE \defeq \lJF \setminus \lPO
+       \end{array}
+      \]
+
+    \item $\lEW \suq [\lW] \seq (\lCF \cap \lEQLOC \cap \lEQVAL)^? \seq [\lW]$ ---
+      отношение \emph{эквивалентности на записях} (\emph{equal-writes}).
+      Это отношение эквивалентности связывает конфликтующие
+      (или идентичные) события записи с одной и той же локацией и значением.
+
+    \item $\lCO \suq [\lW] \seq \lEQLOC \seq [\lW]$ ---
+      это отношение \emph{когерентности}, определенное по аналогии с графами
+      сценариев исполнения (\cref{def:exec-graph}).
+      В отличие от случая графов сценариев исполнения,
+      в структуре событий отношение когерентности
+      полностью упорядочивает записи в одну и ту же локацию
+      только с точностью до отношения $\lEW$.
+      \begin{equation*}
+       \forall x \in \Loc \ldotp~ \forall w_1,w_2 \in \lW_{x} \ldotp~
+          \tup{w_1, w_2} \in \lEW \cup \lCO \cup \lCO^{-1}
+      \end{equation*}
+      Помимо этого, полагается, что отношение $\lCO$ замкнуто
+      относительно отношения $\lEW$, то есть
+      $\lEW \seq \lCO \seq \lEW \subseteq \lCO$.
+
+  \end{itemize}
+
+  Множество всех структур событий будем обозначать как~$\WkmES$.
+\end{definition}
+
+\begin{definition}
+  \label{def:wkm-aux-rel}
+  В модели \Wkm для структуры событий $S$ вводятся следующием производные отношения%
+  \footnote{Подробное описание приведенных здесь отношений может 
+   быть найдено в~\cite{Chakraborty-Vafeiadis:POPL19}}.
+
+  \begin{itemize}
+
+    \item Отношения $\lSW$ и $\lHB$ определены
+      по аналогии с моделью \IMM (\cref{def:imm-aux-rel}),
+      с той лишь разницей, что вместо отношения $\lRF$
+      в их определении используется отношение $\lJF$.
+
+    \item Отношения $\lFR$ и $\lECO$ определены
+      по аналогии с моделью \IMM (\cref{def:imm-aux-rel}).
+
+    \item Отношения $\lSCB$, $\lPSCB$, $\lPSCF$, $\lPSC$ определены
+      по аналогии с моделью \IMM (\cref{def:imm-aux-rel}).
+
+  \item Отношение \emph{расширенного конфликта} (\emph{Extended conflict})
+    определяется путем продолжения отношения конфликта
+    вдоль отношения происходит-до.
+    $$ \lECF \defeq (\lHB^{-1})^? \seq \lCF \seq \lHB^? $$
+    
+  \end{itemize}
+
+\end{definition}
