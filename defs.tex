@@ -229,7 +229,7 @@
 \newcommand{\initval}{\bot}
 
 \newcommand{\lE}{{\mathtt{E}}}
-\newcommand{\lEi}{{\mathtt{E}_{t_0}}}
+\newcommand{\lEi}{{\Init}}
 \newcommand{\Init}{\mathsf{Init}}
 
 \newcommand{\lLAB}{{\mathtt{lab}}}
@@ -330,6 +330,7 @@
    cf/.style={-,snake=zigzag,segment amplitude=1pt,segment length=3pt,colorCF},
    rmw/.style={->,color=colorRMW,,shorten >=-0.5mm,shorten <=-0.5mm},
    ca/.style={->,color=colorPO,thick,shorten >=-0.5mm,shorten <=-0.5mm},
+   jf/.style={->,color=colorJF,dotted,thick,shorten >=-0.5mm,shorten <=-0.5mm},
    rf/.style={->,color=colorRF,dashed,,shorten >=-0.5mm,shorten <=-0.5mm},
    rfs/.style={->,color=colorRF,thick,dashed,,shorten >=-0.5mm,shorten <=-0.5mm},
    rb/.style={->,color=colorRB,thick,shorten >=-0.5mm,shorten <=-0.5mm},
@@ -343,6 +344,14 @@
    then/.style={->,snake=zigzag,segment amplitude=1pt,segment length=3pt},
    esrect/.style={rectangle,dotted},
 }
+
+\tikzstyle{extractStyle}=[color=black,rounded corners=3pt,
+  dashed,fill=green!10]
+
+\newcommand{\extracteddBoxText}{{\protect\tikz \protect\draw[extractStyle] (0,0) rectangle ++(0.35,0.35);}}
+
+\newcommand{\ese}[3]{e^{#1}_{#2#3}}
+\newcommand{\mese}[3]{\ese{#1}{#2}{#3}\colon}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%  Pomsets <-> Exec. Graphs  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

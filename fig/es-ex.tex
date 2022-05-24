@@ -1,0 +1,188 @@
+\begin{figure}[t]
+\newcommand{\XScale}{3}
+\newcommand{\YScale}{0.6}
+  
+\begin{minipage}{.4\textwidth}
+  \begin{subfigure}[b]{\textwidth}\centering
+\begin{tikzpicture}[xscale=\XScale,yscale=\YScale]
+  \node (init) at (0, 1.5) {$\Init$};
+
+  \node (i01) at (-0.7,  0) {$\mese{1}{1}{1} \rlab{}{x}{0}$};
+  \node (i02) at (-0.7, -2) {\phantom{$\wlab{}{y}{1}$}};
+  \node (i31) at (0.7,  0) {\phantom{$\mese{2}{1}{} \rlab{}{y}{1}$}};
+
+  \draw[jf,bend right=10] (init) edge node[above] {\scriptsize$\lJF$} (i01);
+  \draw[po]   (init) edge node[right] {} (i01);
+\end{tikzpicture}
+  \caption{Структура $S_a$.}
+  \label{fig:es-ex:a}
+  \end{subfigure}
+  \vspace{1ex}
+
+  \begin{subfigure}[b]{\textwidth}\centering
+\begin{tikzpicture}[xscale=\XScale,yscale=\YScale]
+  \node (init) at (0, 1.5) {$\Init$};
+
+  \node (i01) at (-0.7,  0) {$\mese{1}{1}{1} \rlab{}{x}{0}$};
+  \node (i02) at (-0.7, -2) {$\mese{1}{2}{1} \wlab{}{y}{1}$};
+  \node (i31) at (0.7,  0) {\phantom{$\mese{2}{1}{} \rlab{}{y}{1}$}};
+
+  \draw[po]   (i01) edge node[right] {} (i02);
+  \draw[jf,bend right=10] (init) edge node[above] {\scriptsize$\lJF$} (i01);
+  \draw[po]   (init) edge node[right] {} (i01);
+
+  %% \begin{scope}[on background layer]
+    %% \draw[extractStyle] ($(init)  + (-1.13,0.55)$) rectangle ++(1.45,-5.1);
+
+    %\node at (0.4, 1.3) {\large $\SXb$};
+  %%   \phantom{\node at (-0.4, 1.3) {\large $X_b$};}
+  %% \end{scope}
+\end{tikzpicture}
+  \caption{Структура $S_b$.}
+  \label{fig:es-ex:b}
+  \end{subfigure}
+  \vspace{1ex}
+
+  \begin{subfigure}[b]{\textwidth}\centering
+\begin{tikzpicture}[xscale=\XScale,yscale=\YScale]
+  \node (init) at (0, 1.5) {$\Init$};
+
+  \node (i01) at (-0.7,  0) {$\mese{1}{1}{1} \rlab{}{x}{0}$};
+  \node (i02) at (-0.7, -2) {$\mese{1}{2}{1} \wlab{}{y}{1}$};
+
+  \node (i31) at (0.7,  0) {$\mese{2}{1}{} \rlab{}{y}{1}$};
+  %% \node (i32) at (-1, -2) {$\ewlab{}{x}{1}{}$};
+
+  \draw[po] (i01) edge node[right] {} (i02);
+  %% \draw[po] (i31) edge node[right] {} (i32);
+
+  \draw[jf,bend right=10] (init) edge node[above] {\scriptsize$\lJF$} (i01);
+  \draw[jf] (i02) edge node[below] {\scriptsize$\lJF$} (i31);
+
+  \draw[po]   (init) edge node[right] {} (i01);
+  \draw[po]   (init) edge node[right] {} (i31);
+\end{tikzpicture}
+  \caption{Структура $S_c$.}
+  \label{fig:es-ex:c}
+  \end{subfigure}
+\end{minipage}
+\hfill
+%\vrule
+\hfill
+\begin{minipage}{.5\textwidth}
+  \begin{subfigure}[b]{\textwidth}\centering
+\begin{tikzpicture}[xscale=\XScale,yscale=\YScale]
+  \node (init) at (0, 1.5) {$\Init$};
+
+  \node (i01) at (-1,  0) {$\mese{1}{1}{1} \rlab{}{x}{0}$};
+  \node (i02) at (-1, -2) {$\mese{1}{2}{1} \wlab{}{y}{1}$};
+
+  \node (i31) at ( 1,  0) {$\mese{2}{1}{} \rlab{}{y}{1}$};
+  \node (i32) at ( 1, -2) {$\mese{2}{2}{} \wlab{}{x}{1}$};
+
+  \draw[po] (i01) edge node[right] {} (i02);
+  \draw[po] (i31) edge node[right] {} (i32);
+
+  \draw[jf,bend right=10] (init) edge node[above] {\scriptsize$\lJF$} (i01);
+  \draw[jf] (i02) edge node[below] {\scriptsize$\lJF$} (i31);
+
+  \draw[po]   (init) edge node[right] {} (i01);
+  \draw[po]   (init) edge node[right] {} (i31);
+
+  \begin{scope}[on background layer]
+    \draw[extractStyle] ($(init)  + (-1.43,0.55)$) rectangle ++(2.86,-5.1);
+%    \node at (1.3, 1.3) {\large $\SXd$};
+  \end{scope}
+\end{tikzpicture}
+  \caption{Структура $S_d$ и конфигурация $X_d$.}
+  \label{fig:es-ex:d}
+  \end{subfigure}
+  \vspace{1ex}
+
+  \begin{subfigure}[b]{\textwidth}\centering
+\begin{tikzpicture}[xscale=\XScale,yscale=\YScale]
+  \node (init) at (0, 1.5) {$\Init$};
+
+
+  \node (i01) at (-1,  0) {$\mese{1}{1}{1} \rlab{}{x}{0}$};
+  \node (i02) at (-1, -2) {$\mese{1}{2}{1} \wlab{}{y}{1}$};
+
+  \node (i11) at ( 0,  0) {$\mese{1}{1}{2} \rlab{}{x}{1}$};
+  %% \node (i12) at (-1, -2) {$\ewlab{}{y}{1}{}$};
+
+  \node (i31) at ( 1,  0) {$\mese{2}{1}{} \rlab{}{y}{1}$};
+  \node (i32) at ( 1, -2) {$\mese{2}{2}{} \wlab{}{x}{1}$};
+
+  \draw[cf] (i01) -- (i11);
+  \node at ($.5*(i01) + .5*(i11) - (0, 0.4)$) {\scriptsize$\lCF$};
+
+  \phantom{\draw[ew] (i02) edge node[below] {\scriptsize$\lEW$} (i32);}
+
+  \draw[po] (i01) edge node[right] {} (i02);
+  %% \draw[po] (i11) edge node[right] {} (i12);
+  \draw[po] (i31) edge node[right] {} (i32);
+
+  \draw[jf] (i32) edge node[below] {\scriptsize$\lJF$} (i11);
+  \draw[jf] (i02) edge node[below] {\scriptsize$\lJF$} (i31);
+
+  \draw[jf,bend right=10] (init) edge node[above] {\scriptsize$\lJF$} (i01);
+
+  %% \draw[rf] (i12) edge node[below] {\scriptsize$\lRF$} (i31);
+
+  \draw[po]   (init) edge node[right] {} (i01);
+  \draw[po]   (init) edge node[right] {} (i11);
+  \draw[po]   (init) edge node[right] {} (i31);
+\end{tikzpicture}
+  \caption{Структура $S_e$.}
+  \label{fig:es-ex:e}
+  \end{subfigure}
+  \vspace{1ex}
+
+  \begin{subfigure}[b]{\textwidth}\centering
+\begin{tikzpicture}[xscale=\XScale,yscale=\YScale]
+  \node (init) at (0, 1.5) {$\Init$};
+
+  \node (i01) at (-1,  0) {$\mese{1}{1}{1} \rlab{}{x}{0}$};
+  \node (i02) at (-1, -2) {$\mese{1}{2}{1} \wlab{}{y}{1}$};
+
+  \node (i11) at ( 0,  0) {$\mese{1}{1}{2} \rlab{}{x}{1}$};
+  \node (i12) at ( 0, -2) {$\mese{1}{2}{2} \wlab{}{y}{1}$};
+
+  \node (i31) at ( 1,  0) {$\mese{2}{1}{} \rlab{}{y}{1}$};
+  \node (i32) at ( 1, -2) {$\mese{2}{2}{} \wlab{}{x}{1}$};
+
+  \draw[cf] (i01) -- (i11);
+  \node at ($.5*(i01) + .5*(i11) - (0, 0.4)$) {\scriptsize$\lCF$};
+
+  \draw[ew] (i02) edge node[below] {\scriptsize$\lEW$} (i12);
+
+  \draw[po] (i01) edge node[right] {} (i02);
+  \draw[po] (i11) edge node[right] {} (i12);
+  \draw[po] (i31) edge node[right] {} (i32);
+
+  \draw[jf] (i32) edge node[above] {} (i11);
+  \draw[jf] (i02) edge node[left] {} (i31);
+
+  \draw[jf,bend right=10] (init) edge node[above] {\scriptsize$\lJF$} (i01);
+
+  %\draw[rf] (i12) edge node[below] {\scriptsize$\lRF$} (i31);
+
+  \draw[po]   (init) edge node[right] {} (i01);
+  \draw[po]   (init) edge node[right] {} (i11);
+  \draw[po]   (init) edge node[right] {} (i31);
+   
+
+  \begin{scope}[on background layer]
+    \draw[extractStyle] ($(init)  + (-0.42,0.55)$) rectangle ++(1.84,-5.1);
+%    \node at (1.3, 1.3) {\large $\SXf$};
+  \end{scope}
+\end{tikzpicture}
+  \caption{Структура $S_f$ и конфигурация $X_f$.}
+  \label{fig:es-ex:f}
+  \end{subfigure}
+\end{minipage}
+
+\caption{Построение структуры событий \Wkm,
+  соответствующий программе \ref{ex:LB-nodep}.}
+\label{fig:es-ex}
+\end{figure}
