@@ -212,7 +212,7 @@
 \subsection*{Модель памяти \IMM}
 
 В этом разделе приводится краткий разбор 
-модели памяти \IMM~\cite{podkopaev2019:imm},
+модели памяти \IMM~\cite{Podkopaev-al:POPL19},
 которая предоставляет абстракцию над моделями
 конкретных мультипроцессоров, в частности \Intel, \ARM, и \POWER.
 Основной особенностью этих моделей, включая \IMM,
@@ -275,7 +275,7 @@
   \label{def:imm-aux-rel}
   В модели \IMM для графа $G$ вводятся следующием производные отношения%
   \footnote{Подробное описание приведенных здесь отношений может 
-   быть найдено в~\cite{podkopaev2019:imm,Moiseenko-al:ECOOP20}}.
+   быть найдено в~\cite{Podkopaev-al:POPL19,Moiseenko-al:ECOOP20}}.
 
   \begin{itemize}
 
@@ -587,7 +587,6 @@ $\ese{1}{2}{1}$ и $\ese{1}{2}{2}$.
 \label{def:es-cons}
   Структура событий $S$ является консистентной с точки зрения
   модели \Wkm если выполняются следующие условия:
-  
   \begin{itemize}
     \item $\dom{\lCFimm} \suq \lR$
       \labelAxiom{$\lCFimm$-read}{ax:wkm-icf-read}

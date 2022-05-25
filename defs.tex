@@ -231,6 +231,7 @@
 \newcommand{\lE}{{\mathtt{E}}}
 \newcommand{\lEi}{{\Init}}
 \newcommand{\Init}{\mathsf{Init}}
+\newcommand{\ESinit}{S_{\rm init}}
 
 \newcommand{\lVIS}{{\mathtt{Vis}}}
 
@@ -355,6 +356,22 @@
 \newcommand{\ese}[3]{e^{#1}_{#2#3}}
 \newcommand{\mese}[3]{\ese{#1}{#2}{#3}\colon}
 
+\newcommand{\thrdstep}[1]{\xrightarrow{#1}}
+\newcommand{\esaddpo}[1]{\xhookrightarrow[\lPO]{#1}}
+\newcommand{\esaddjf}[1]{\xhookrightarrow[\lJF]{#1}}
+\newcommand{\esaddew}[1]{\xhookrightarrow[\lEW]{#1}}
+\newcommand{\esaddco}[1]{\xhookrightarrow[\lCO]{#1}}
+\newcommand{\esaddrmw}[1]{\xhookrightarrow[\lRMW]{#1}}
+\newcommand{\esstep}[1]{\xhookrightarrow[\mathtt{pre}]{#1}}
+\newcommand{\esstepcons}[1]{\xhookrightarrow{#1}}
+\newcommand{\travstep}[1]{\xrightarrow{#1}}
+
+\newcommand{\TC}{TC}
+\newcommand{\TCinit}[1]{\TC_{\mathrm{init}}({#1})}
+\newcommand{\TCfinal}[1]{\TC_{\mathrm{final}}({#1})}
+
+\newcommand{\simrel}{\mathcal{I}}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%  Pomsets <-> Exec. Graphs  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -443,6 +460,7 @@
 \newcommand{\JS}{JavaScript\xspace}
 \newcommand{\LLVM}{LLVM\xspace}
 \newcommand{\LLVMIR}{LLVM~IR\xspace}
+\newcommand{\LLANG}{\ensuremath{\mathsf{L}}\xspace}
 
 %% memory models abbreviations
 
