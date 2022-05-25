@@ -342,6 +342,7 @@
 \end{definition}
 
 \begin{definition}
+  \label{def:imm-cons}
   Граф $G$ является консистентным с точки зрения \IMM 
   если выполняются следующие условия:
   
@@ -494,6 +495,12 @@ $\ese{1}{2}{1}$ и $\ese{1}{2}{2}$.
         \lCF \defeq ([\lE \setminus \lEi] \seq {=_{\lTID}} \seq [\lE \setminus \lEi])
                     \setminus (\lPO \cup \lPO^{-1})^?.
       \end{equation*}
+      Кроме того, будем говорить что два события находятся в
+      \emph{непосредственном конфликте} если они имеют общего $\lPO$ предка. 
+      \begin{equation*}
+        \lCFimm \defeq \lCF \cap (\lPOimm^{-1} \seq \lPOimm)
+      \end{equation*}
+
 
     \item $\lJF \suq [\lW] \seq (\lEQLOC \cap \lEQVAL) \seq [\lR]$ --- 
       это отношение \emph{обоснован-из} (\emph{justified-from}). Оно связывает
@@ -565,7 +572,7 @@ $\ese{1}{2}{1}$ и $\ese{1}{2}{2}$.
     \item Отношения $\lSCB$, $\lPSCB$, $\lPSCF$, $\lPSC$ определены
       по аналогии с моделью \IMM (\cref{def:imm-aux-rel}).
 
-  \item Отношение \emph{расширенного конфликта} (\emph{Extended conflict})
+  \item Отношение \emph{расширенного конфликта} (\emph{extended conflict})
     определяется путем продолжения отношения конфликта
     вдоль отношения происходит-до.
     $$ \lECF \defeq (\lHB^{-1})^? \seq \lCF \seq \lHB^? $$
@@ -573,3 +580,37 @@ $\ese{1}{2}{1}$ и $\ese{1}{2}{2}$.
   \end{itemize}
 
 \end{definition}
+
+\todo{Определение видимых событий $\lVIS$}
+
+\begin{definition}
+\label{def:es-cons}
+  Структура событий $S$ является консистентной с точки зрения
+  модели \Wkm если выполняются следующие условия:
+  
+  \begin{itemize}
+    \item $\dom{\lCFimm} \suq \lR$
+      \labelAxiom{$\lCFimm$-read}{ax:wkm-icf-read}
+
+    \item $\lJF \seq \lCFimm \seq \lJF^{-1} \seq \lEW$ иррефлексивно.
+      \labelAxiom{$\lCFimm$-justification}{ax:wkm-icf-jf}
+
+    \item $\lECF$ иррефлексивно.
+      \labelAxiom{$\lECF$-irreflexivity}{ax:wkm-ecf-irr}
+
+    \item $\lJF \cap \lECF = \emptyset$
+      \labelAxiom{$\lJF$-non-conflict}{ax:wkm-jf-necf}
+
+    \item $\dom{\lJFE} \suq \lVIS$
+      \labelAxiom{$\lJFE$-visible}{ax:wkm-jf-vis}
+
+    \item $\lHB \seq \lECO^?$ иррефлексивно.
+      \labelAxiom{coherence}{ax:wkm-coh}
+  \end{itemize}
+\end{definition}
+
+\todo{Определение конфигурации}
+
+\todo{Определение консистентного графа \Wkm}
+
+\todo{Определение операционной семантики \Wkm}
