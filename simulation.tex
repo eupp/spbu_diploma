@@ -1,23 +1,190 @@
 \pagebreak
 
 \section{Симуляция обхода графа \IMM}
+\label{sec:simulation}
 
-Общее описание данного раздела --- более подробный разбор процесса симуляции.
-Формальное определение симуляции.
+В данном разделе приводится более подробный обзор
+процесса симуляции построения структуры событий по обходу \IMM графа.
+В разделе \ref{sec:imm-trav} детально рассматривается
+операционная семантика обхода графа \IMM.
+В разделе \ref{sec:simrel} описывается
+отноешние симуляции $\simrel$.
+Наконец, в разделе \ref{sec:simstep} на примерах разбирается
+процесс симуляции шага обхода графа
+семантикой построения структуры событий. 
 
 \subsection{Обход графа \IMM}
+\label{sec:imm-trav}
 
 Определение обхода графа \IMM. Основные инварианты обхода.
 
 \subsection{Отношение симуляции}
+\label{sec:simrel}
 
-Определение отношения симуляции. Основные инварианты симуляции.
+Далее опишем отношение симуляции $\simrel$.
+В целях ясности и простоты изложения, 
+в данном разделе будет приведена упрощенная версия формального
+определения этого отношения, которая опускает некоторые
+технические детали. Полная версия отношения симуляции
+может быть найдена в \coq репозитории. 
+
+Отношение симуляции $\simrel(P, T, G, TC, S, X)$
+устанавливает взаимосвязь между структурой событий $S$
+и графом сценария исполнения $G$ с помощью
+функции $\ea : S.\lE \fun G.\lE$, которая отображает
+события структуры $S$ в события графа $G$.
+Эта функция может быть натуральным образом
+расширена на множества событий следующим образом%
+\footnote{аналогично образом функций $\ea$ может быть расширена
+на бинарные отношения на событиях.}:
+
+\begin{align*}
+\text{for } A_S \subseteq S.\lE        & :
+  \fmap{A_S} \defeq \set{\ea(e) \in G.\lE \mid e \in A_S} \\
+\text{for } A_G \subseteq G.\lE        & :
+  \fcomap{A_G} \defeq \set{e \in S.\lE \mid \ea(e) \in A_G}.
+\end{align*}
+
+Отношение симуляции $\simrel(P, T, G, \TC, S, X)$ состоит из следующих свойств.
+
+\begin{enumerate}
+
+  \item \label{simrel:events}
+    События $S$, принадлежащие потокам из $T$, а также события,
+    принадлежащие конфигурации $X$, соответствуют покрытым событиям,
+    а также выпущенным событиям и их $\lPO$-предшественникам: 
+    \begin{itemize}
+      \item $\fmap{S.\lE\rst{T}} = \fmap{X} = C \cup \dom{G.\lPO^? \seq [I]}$
+    \end{itemize}
+
+  \item \label{simrel:lab}
+    Метки событий из $S$ совпадают с метками событий из $G$
+    по модулю прочитанных или записанных значений. 
+    \begin{enumerate}
+      \setcounter{enumii}{0}
+      \item \label{simrel:lab-eqmval}
+        $\forall e \in S.\lE \ldotp\;
+          S.\set{\lTID, \lTYP, \lLOC, \lMOD}(e) =
+          G.\set{\lTID, \lTYP, \lLOC, \lMOD}(\fmap{e}) $
+    \end{enumerate}
+    Метки покрытых и выпущенных событий, принадлежащих конфигурации $X$,
+    сопадают полностью.
+    \begin{enumerate}
+      \setcounter{enumii}{1}
+      \item \label{simrel:lab-det}
+        $\forall e \in X \cap \fcomap{C \cup I} \ldotp~
+          S.\lVAL(e) = G.\lVAL(\ea(e))$
+    \end{enumerate}
+
+  \item \label{simrel:po}
+    Программный порядок в структуре событий $S$
+    совпадает с программным порядком в графе $G$:
+    \begin{itemize}
+      \item $\fmap{S.\lPO} \suq G.\lPO$
+    \end{itemize}
+
+  \item \label{simrel:cf}
+    Если два события имеют одинаковый образ под действием функции $\ea$,
+    то эти события равны или находятся в конфликте.
+    \begin{itemize}
+      \item $\fcomap{\mathtt{id}} \suq S.\lCF^?$
+    \end{itemize}
+
+  \item \label{simrel:jf}
+    События чтения в $S$ должны быть обоснованы событиями записи,
+    которые наблюдаются соответствующим событием чтением в $G$.
+    \begin{enumerate}
+      \item \label{simrel:jf-obs}
+      \setcounter{enumii}{0}
+        $\fmap{S.\lJF} \suq G.\lRF^?\seq G.\lHB^?$
+    \end{enumerate}
+    Более того, отношение $\lJF$, ограниченное на события чтения,
+    принадлежащие конфигурации $X$, соответствуют
+    отношению \emph{стабильной обоснованности} (\emph{stable justification})
+    (смотри \cref{def:sjf}) в графе $G$.
+    \begin{enumerate}
+      \setcounter{enumii}{1}
+      \item \label{simrel:jf-sjf}
+        $\fmap{S.\lJF \seq [X]} \suq G.\lSRF_{TC}$
+    \end{enumerate}
+    %% As a consequence it is possible to derive that
+    %% justification for covered events in $X$
+    %% corresponds to their justification in $G$:
+    %% $\fmap{S.\lJF \seq [X \cap \fcomap{C}]} \subseteq G.\lRF$. \\
+    Только выпущенные события могут быть использованы для
+    внешнего обоснования событий чтения. 
+    \begin{enumerate}
+      \setcounter{enumii}{2}
+      \item \label{simrel:jfe-iss}
+         $\dom{S.\lJFE} \suq \dom{S.\lEW \seq [X \cap \fcomap{I}]}$
+    \end{enumerate}
+
+  \item \label{simrel:ew}
+    Все эквивалентные события записи в $S$ отображаются
+    в одну и то же событие записи $G$.
+    \begin{enumerate}
+      \setcounter{enumii}{0}
+      \item \label{simrel:ew-id}
+        $\fmap{S.\lEW} \suq \mathtt{id}$
+    \end{enumerate}
+    Также. каждый класс эквивалентности по отношению $S.\lEW^*$
+    должен иметь представителя среди выпущенных событий,
+    принадлежащих конфигурации $X$.
+    \begin{enumerate}
+      \setcounter{enumii}{1}
+      \item \label{simrel:ew-iss}
+        $S.\lEW \suq (S.\lEW \seq [X \cap \fcomap{I}] \seq S.\lEW)^?$
+    \end{enumerate}
+
+  \item \label{simrel:co}
+    Если два события структуры $S$ находящихся в отношении когерентности,
+    то их образы под действием функции либо также находятся
+    в отношении когерентности, либо равны. 
+    \begin{enumerate}
+      \setcounter{enumii}{0}
+      \item \label{simrel:co-co}
+         $\fmap{S.\lCO} \suq G.\lCO^?$
+    \end{enumerate}
+    Если же ребро отношения когерентности оканчивается
+    в событие, принадлежащем конфигурации $X$ и одному из потоков из $T$,
+    тогда образ этого ребра принадлежит отношению когерентности в графе $G$.
+    \begin{enumerate}
+      \setcounter{enumii}{1}
+      \item \label{simrel:co-cfg}
+         $\fmap{S.\lCO \seq [X\rst{T}]} \suq G.\lCO$
+    \end{enumerate}
+
+  \item \label{simrel:sw-hb}
+    Отношения ``синхронизируется-с'' и ``происходит-до''
+    в структуре событий $S$ согласованы с соответствующими
+    отношениями в графе $G$.
+    \begin{enumerate}
+      \item \label{simrel:sw}
+        $\fmap{S.\lSW} \suq G.\lSW$
+      \item \label{simrel:hb}
+        $\fmap{S.\lHB} \suq G.\lHB$
+    \end{enumerate}
+
+\end{enumerate}
+
 
 \subsection{Шаг симуляции}
+\label{sec:simstep}
 
 Описание шага симуляции. Процесс добавление новых событий чтения и записи.
 Обоснование сохранения отношения симуляции при добавлении
 нового события в структуру событий.
+
+\begin{definition}
+\label{def:sjf}
+Отношение \emph{стабильной обоснованности}
+определяется следующим образом.
+\begin{equation*}
+  G.\lSRF_{TC} \defeq
+    ([G.\lW] \seq (G.\lVF_{TC} \cap {=}_{G.\lLOC}) \seq [G.\lR])
+    \setminus (G.\lCO \seq G.\lVF_{TC})
+\end{equation*}
+\end{definition}
 
 %% \subsection{Отношение симуляции для сертификационной ветки}
 

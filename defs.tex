@@ -52,6 +52,9 @@
 \newcommand{\dwsset}[1]{\lceil{#1}\rceil}
 \newcommand{\upsset}[1]{\lfloor{#1}\rfloor}
 
+% liftings of a function
+\newcommand{\fmap}[1]{{\llceil #1 \rrceil}}
+\newcommand{\fcomap}[1]{{\llfloor #1 \rrfloor}}
 
 % function-to-relation
 \newcommand{\frel}[1]{#1^\uparrow}
@@ -300,6 +303,9 @@
 \newcommand{\lBOB}{{\mathtt{bob}}}
 \newcommand{\lSC}{{\color{colorSC}\mathtt{sc}}}
 
+\newcommand{\lVF}{{\color{colorVF}\mathtt{vf}}}
+\newcommand{\lSRF}{{\color{colorJF}\mathtt{sjf}}}
+
 \newcommand{\lDETOUR}{{{\color{colorDETOUR}\mathtt{detour}}}}
 \newcommand{\lDEPS}{{{\color{colorDEPS}\mathtt{deps}}}}
 \newcommand{\lCTRL}{{{\color{colorDEPS}\mathtt{ctrl}}}}
@@ -371,6 +377,10 @@
 \newcommand{\TCfinal}[1]{\TC_{\mathrm{final}}({#1})}
 
 \newcommand{\simrel}{\mathcal{I}}
+
+\newcommand{\ea}{f}
+% a shortcut to map event names of graph to event structure
+\newcommand{\gs}[1]{\underline{#1}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%  Pomsets <-> Exec. Graphs  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

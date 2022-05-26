@@ -2,7 +2,7 @@
 
 \section{Теорема о корректности компиляции}
 
-В этом разделе приводится формулировка теоремы о
+В данном разделе приводится формулировка теоремы о
 корректности компиляции, а также схема ее доказательства
 и пример ее применения.
 
@@ -144,7 +144,22 @@ $\lPO$ предшественники уже покрыты, и (ii)
   или, другими словами, $G$ может быть извлечен из $S$:~~$S \rhd G$.
 \end{lemma}
 
-\todo{}
+Доказательство теоремы \cref{thm:main}
+проводится методом индукции по трассе обхода графа
+$G \vdash \TCinit{G} \travstep{}^* \TCfinal{G}$.
+Лемма \cref{lemma:simstart} используется в качестве базы индукции,
+лемма \cref{lemma:simstep} --- это шаг индукции,
+а лемма \cref{lemma:simend} завершает доказательство.
+
+В свою очередь, доказательства лемм \cref{lemma:simstart,lemma:simend}
+достаточно прямолинейны (найти их можно в \coq репозитории).
+Основная сложность заключена в доказательстве леммы \cref{lemma:simstep}.
+Более детально это доказательство рассматривается в \cref{sec:simulation}.
+
+%% In contrast, \cref{lemma:simstep} is much more difficult to prove.
+%% As we will see, simulating a traversal step sometimes requires us
+%% to construct a new branch in the event structure,
+%% \ie to add multiple events (see \cref{sec:simstep}).
 
 \subsection{Пример построения структуры событий}
 
