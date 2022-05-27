@@ -1,0 +1,34 @@
+\begin{figure}[t]
+\hfill$\inarrII{
+  \readInst{}{r_1}{x} \rfcomment{1} \\[1mm]
+  \writeInst{}{y}{r_1}              \\[1mm]
+  \writeInst{}{z}{1}                \\
+}{
+  \readInst{}{r_2}{y} \rfcomment{1} \\[1mm]
+  \readInst{}{r_3}{z} \rfcomment{1} \\[1mm]
+  \writeInst{}{x}{r_3}              \\
+}$
+\hfill\vrule\hfill
+$\inarr{\begin{tikzpicture}[xscale=1,yscale=1.5]
+  \node (init) at (2,  1)  {$\Init$};
+  \node (i11)  at (0,  0)   {$\mese{1}{1}{} \rlab{}{x}{1}$};
+  \node (i12)  at (0, -1)   {$\mese{1}{2}{} \wlab{}{y}{1}$};
+  \node (i13)  at (0, -2)   {$\mese{1}{3}{} \wlab{}{z}{1}$};
+  \node (i21)  at (4,  0)   {$\mese{2}{1}{} \rlab{}{y}{1}$};
+  \node (i22)  at (4, -1)   {$\mese{2}{2}{} \rlab{}{z}{1}$};
+  \node (i23)  at (4, -2)   {$\mese{2}{3}{} \wlab{}{x}{1}$};
+  \draw[rf] (i13) edge node[below] {\small$\lRF$} (i22);
+  \draw[rf] (i23) edge node[pos=.4,above] {\small\phantom{j}$\lRF$} (i11);
+  \draw[rf] (i12) edge node[above] {\small$\lRF$} (i21);
+  \draw[ppo,out=230,in=130] (i11) edge node[left ,pos=0.8] {\small$\lPPO$} (i12);
+  \draw[ppo,out=310,in=50 ] (i22) edge node[right,pos=0.3] {\small$\lPPO$} (i23);
+  \draw[po] (init) edge (i11);
+  \draw[po] (init) edge (i21);
+  \draw[po] (i11)  edge (i12);
+  \draw[po] (i12)  edge (i13);
+  \draw[po] (i21)  edge (i22);
+  \draw[po] (i22)  edge (i23);
+\end{tikzpicture}}$
+\caption{Пример программы и соответствующий ей \IMM граф}
+\label{fig:lb-sim-ex}
+\end{figure}
