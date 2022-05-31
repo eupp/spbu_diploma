@@ -1,0 +1,82 @@
+\begin{figure}[t]
+\hfill$\inarr{\begin{tikzpicture}[scale=0.8, every node/.style={transform shape}]
+  \node (init) at (2,  1)   {$\Init$};
+  \node (i11)  at (0,  0)   {$\mese{1}{1}{} \rlab{}{x}{1}$};
+  \node (i12)  at (0, -1)   {$\mese{1}{2}{} \wlab{}{y}{1}$};
+  \node (i13)  at (0, -2)   {$\mese{1}{3}{} \wlab{}{z}{1}$};
+  \node (i21)  at (4,  0)   {$\mese{2}{1}{} \rlab{}{y}{1}$};
+  \node (i22)  at (4, -1)   {$\mese{2}{2}{} \rlab{}{z}{1}$};
+  \node (i23)  at (4, -2)   {$\mese{2}{3}{} \wlab{}{x}{1}$};
+  %% \node (hh) at (2, -3) {$\inarrC{\text{The traversal configuration } \TCc}$};
+  \begin{scope}[on background layer]
+     \issuedCoveredBox{init};
+     \issuedBox{i13};
+     \issuedBox{i23};
+     \coveredBox{i11};
+  \end{scope}
+  \draw[rf] (i13) edge node[above] {} (i22);
+  \draw[rf] (i23) edge node[above] {} (i11);
+  \draw[rf] (i12) edge node[above] {} (i21);
+  %\draw[vf] (init) edge[bend left=20]  node[above right, pos=0.9] {$\lVF$} (i21);
+  %\draw[vf] (i13)  edge[bend right=20] node[above] {$\lVF$} (i22);
+  \draw[ppo,out=230,in=130] (i11) edge node[left ,pos=0.8] {\small$\lPPO$} (i12);
+  \draw[ppo,out=310,in=50 ] (i22) edge node[right,pos=0.3] {\small$\lPPO$} (i23);
+  \draw[po] (init) edge (i11);
+  \draw[po] (init) edge (i21);
+  \draw[po] (i11)  edge (i12);
+  \draw[po] (i12)  edge (i13);
+  \draw[po] (i21)  edge (i22);
+  \draw[po] (i22)  edge (i23);
+\end{tikzpicture}}
+\hfill\vrule\hfill
+\inarr{\begin{tikzpicture}[scale=0.8, every node/.style={transform shape}]
+  \node (init) at (3, 1)     {$\Init$};
+
+  \node (i111)  at (0,  0)   {$\mese{1}{1}{1} \rlab{}{x}{0}$};
+  \node (i121)  at (0, -1)   {$\mese{1}{2}{1} \wlab{}{y}{0}$};
+  \node (i131)  at (0, -2)   {$\mese{1}{3}{1} \wlab{}{z}{1}$};
+
+  \node (i112)  at (3,  0)   {$\mese{1}{1}{2} \rlab{}{x}{1}$};
+  \node (i122)  at (3, -1)   {$\mese{1}{2}{2} \wlab{}{y}{1}$};
+  \node (i132)  at (3, -2)   {$\mese{1}{3}{2} \wlab{}{z}{1}$};
+
+  \node (i211)  at (6,  0)   {$\mese{2}{1}{1} \rlab{}{y}{0}$};
+  \node (i221)  at (6, -1)   {$\mese{2}{2}{1} \rlab{}{z}{1}$};
+  \node (i231)  at (6, -2)   {$\mese{2}{3}{1} \wlab{}{x}{1}$};
+
+  \draw[jf] (init) edge[bend right] node[above]        {} (i111);
+  \draw[jf] (init) edge[bend left ] node[above]        {} (i211);
+  \draw[jf] (i131) edge             node[pos=.5,below] {} (i221);
+  \draw[jf] (i231) edge             node[pos=.5,below] {} (i112);
+
+  \draw[cf] (i111) -- (i112);
+  \node at ($.5*(i111) + .5*(i112) - (0, 0.2)$) {\small$\lCF$};
+
+  \draw[co] (i122) edge node[pos=.5,below] {\small$\lCO$} (i121);
+  \draw[ew] (i131) edge node[pos=.5,below] {\small$\lEW$} (i132);
+
+  \draw[po] (init)  edge (i111);
+  \draw[po] (i111)  edge (i121);
+  \draw[po] (i121)  edge (i131);
+
+  \draw[po] (init)  edge (i112);
+  \draw[po] (i112)  edge (i122);
+  \draw[po] (i122)  edge (i132);
+
+  \draw[po] (init)  edge (i211);
+  \draw[po] (i211)  edge (i221);
+  \draw[po] (i221)  edge (i231);
+
+  \begin{scope}[on background layer]
+    \draw[extractStyle] (2, 1.5) rectangle (7,-2.5);
+  \end{scope}
+
+  %% \node (hh) at (3, -3.5) {$\inarrC{\text{The event structure } \ESc \text{ and} \\\text{the selected execution } \SXc}$};
+\end{tikzpicture}}$\hfill
+\caption{Граф сценария исполнения $G$, 
+конфигурация его обхода $\TC_c$
+и соответствующая этой конфигурации
+структура событий $S_c$ вместе с конфигурацией $X_c$.
+}
+\label{fig:lb-sim-ex-travC}
+\end{figure}

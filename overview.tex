@@ -581,7 +581,19 @@ $\ese{1}{2}{1}$ и $\ese{1}{2}{2}$.
 
 \end{definition}
 
-\todo{Определение видимых событий $\lVIS$}
+\begin{definition}
+\label{def:vis}
+Будем говорить что событие $e$ является \emph{видимым} (\emph{visible}),
+если для всех конфликтующих записей, которые были использованы
+в процессе обоснования $e$, существует эквивалентная запись
+не находящаяся в конфликте с $e$.
+\begin{equation*}
+  S.\lVIS \defeq \set{e \in S.\lE \mid
+    S.\lCF \cap (S.\lJFE \seq (S.\lPO \cup S.\lJF)^*) \seq [e] \suq
+    S.\lEW \seq (S.\lPO \cup S.\lPO^{-1})^?
+  }
+\end{equation*}
+\end{definition}
 
 \begin{definition}
 \label{def:es-cons}
@@ -608,8 +620,45 @@ $\ese{1}{2}{1}$ и $\ese{1}{2}{2}$.
   \end{itemize}
 \end{definition}
 
-\todo{Определение конфигурации}
+\begin{definition}
+  \label{def:cfg}
+  Подмножество событий $X \suq S.\lE$ называется \emph{конфигурацией} структуры событий $S$
+  если выполняются следующие условия.
+  \begin{itemize}
+    \label{def:extracted}
 
-\todo{Определение консистентного графа \Wkm}
+    \item $X$ бесконфликтно:
+      $$ S.\lCF \cap X \times X = \emptyset. $$
+      % \labelAxiom{$\lCFimm$-justification}{ax:ex-cf}
+
+    \item $X$ полно относительно $S.\lRF$:
+      $$ X \cap S.\lR \suq \cod{[X] \seq S.\lRF}. $$
+      % \labelAxiom{ex-$\lRF$-complete}{ax:ex-rf}
+      %% , \ie each read event in $\SX$ has an incoming $\lRF$ edge from an $\SX$'s event.
+
+    \item $X$ состоит из видимых событий:
+      $$ X \suq S.\lVIS. $$
+      % \labelAxiom{ex-visible}{ax:ex-vis}
+
+    \item $X$ замкнуто относительно $\lHB$:
+      $$ \dom{S.\lHB \seq [X]} \suq X. $$
+      % \labelAxiom{$\lHB$-closed}{ax:ex-hb}
+
+  \end{itemize}
+\end{definition}
+
+\begin{definition}
+  \label{def:extracted}
+  Граф $G$ \emph{извлекается} (\emph{extracted from}) из структуры событий $S$,
+  что обозначается как $S \rhd G$, если $G.\lE$ является конфигурацией $S$,
+  такой что $G.\mathtt{x} = S.\mathtt{x}\rst{G.\lE}$
+  для $\mathtt{x} \in \set{\lPO,\lEW,\lCO}$ и $G.\lJF = G.\lRF = S.\lRF\rst{G.\lE}$.
+\end{definition}
+
+\begin{definition}
+  \label{def:wkmo-cons}
+  Граф $G$ является \emph{\Wkm-консистентным} если он может быть
+  извлечен из некоторой \Wkm-консистентной структуры событий $S$.
+\end{definition}
 
 \todo{Определение операционной семантики \Wkm}
