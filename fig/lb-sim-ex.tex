@@ -1,5 +1,7 @@
 \begin{figure}[h]
-\hfill$\inarrII{
+\hfill
+\begin{equation}
+  \inarrII{
   \readInst{}{r_1}{x} \rfcomment{1} \\[1mm]
   \writeInst{}{y}{r_1}              \\[1mm]
   \writeInst{}{z}{1}                \\
@@ -7,7 +9,9 @@
   \readInst{}{r_2}{y} \rfcomment{1} \\[1mm]
   \readInst{}{r_3}{z} \rfcomment{1} \\[1mm]
   \writeInst{}{x}{r_3}              \\
-}$
+}
+\tag{LB-trav}\label{ex:LB-trav}
+\end{equation}
 \hfill\vrule\hfill
 $\inarr{\begin{tikzpicture}[xscale=1,yscale=1.5]
   \node (init) at (2,  1)  {$\Init$};
