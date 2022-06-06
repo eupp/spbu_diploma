@@ -361,7 +361,6 @@
   dashed,fill=green!10]
 
 \tikzstyle{issuedStyle}=[pattern=custom north east lines, hatchcolor=colorISS, rounded corners]
-%% \tikzstyle{coveredStyle}=[pattern=custom north east lines, hatchcolor=colorCOV]
 \tikzstyle{coveredStyle}=[]
 
 \newcommand{\setBox}[2]{
@@ -385,6 +384,27 @@
   \issuedBox{#1}
 }
 
+% A version of boxes for events w/o "\ee{11} : " in their labels.
+\newcommand{\nlSetBox}[2]{
+    \draw[#1] ($(#2)  + (-0.85,-0.55)$) rectangle ++(1.7,1.1);
+}
+\newcommand{\nlBigSetBox}[2]{
+    \draw[#1] ($(#2)  + (-0.95,-0.65)$) rectangle ++(1.9,1.3);
+}
+\newcommand{\nlIssuedBox}[1]{
+  \nlSetBox{issuedStyle}{#1}
+}
+\newcommand{\nlCoveredBox}[1]{
+  \nlSetBox{coveredStyle}{#1}
+}
+\newcommand{\nlIssuedCoveredBox}[1]{
+  \nlBigSetBox{coveredStyle}{#1}
+  \nlIssuedBox{#1}
+}
+
+\newcommand{\nlCoveredDoubleBox}[2]{
+    \draw[coveredStyle] ($(#1)  + (0.95,0.6)$) rectangle ($(#2)  + (-0.95,-0.6)$);
+}
 
 \newcommand{\ese}[3]{e^{#1}_{#2#3}}
 \newcommand{\mese}[3]{\ese{#1}{#2}{#3}\colon}
@@ -410,6 +430,9 @@
 \newcommand{\gs}[1]{\underline{#1}}
 
 \newcommand{\Br}{Br}
+
+\newcommand{\proglb}{P_{\mathtt{lbndep}}}
+\newcommand{\Glb}{G_{\mathtt{lbndep}}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%  Pomsets <-> Exec. Graphs  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
