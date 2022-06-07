@@ -13,7 +13,7 @@
 \[\def\arraystretch{1}
 \begin{array}{rcl}
 
-  \deltapo(e, e')     & \defeq & \dwset{e}{S.\lPO} \times \set{e'}         \\
+  \deltapo(e, e')     & \defeq & \dom{S.\lPO^? \seq [e]} \times \set{e'}   \\
 
   \deltarmw(r, w)     & \defeq & \kw{if}~ w \in \lWex \kw{then} 
                                  \set{\tup{r, w}}     \kw{else} \emptyset  \\
@@ -115,7 +115,7 @@
   \AxiomC{$W$ is $S.\lCO$ closed}
   \AxiomC{$W \cap EW = \emptyset$}
   \noLine
-  \BinaryInfC{$EW = \dom{S'.\lEW \seq [w']} \setminus \set{w'}$}
+  \BinaryInfC{$EW = \dom{S'.\lEW \seqc [w']} \setminus \set{w'}$}
   \noLine
   \UnaryInfC{$S'.\lCO = S.\lCO \cup \deltaco(EW, W, w')$}
 

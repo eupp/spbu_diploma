@@ -1,0 +1,42 @@
+\newcommand{\IssueStep}{(Issue)\xspace}
+\newcommand{\CoverStep}{(Cover)\xspace}
+\newcommand{\ReleaseCoverStep}{(Release-Cover)\xspace}
+\newcommand{\RMWCoverStep}{(RMW-Cover)\xspace}
+
+\begin{figure}[t]
+\begin{center}
+
+  \AxiomC{$e \in \Coverable(G, C, I)$}
+  \AxiomC{$e \not\in \dom{G.\lRMW}$}
+  \RightLabel{\CoverStep}
+  \BinaryInfC{$G \vdash \tup{C, I} \travstep{e} \tup{C \uplus \set{e}, I}$}
+  \DisplayProof
+  \rulevspace
+
+  \AxiomC{$w \in \Issuable(G, C, I)$}
+  \AxiomC{$w \in G.\lW^{\squ\rel}$}
+  \RightLabel{\IssueStep}
+  \BinaryInfC{$G \vdash \tup{C, I} \travstep{w} \tup{C, I \uplus \set{w}}$}
+  \DisplayProof
+  \rulevspace
+
+  \AxiomC{$\dom{G.\lPO \seqc [w]} \suq C$}
+  \AxiomC{$w \in G.\lW^{\rel\squq}$}
+  \RightLabel{\ReleaseCoverStep}
+  \BinaryInfC{$G \vdash \tup{C, I} \travstep{w} \tup{C \uplus \set{w}, I \uplus \set{w}}$}
+  \DisplayProof
+  \rulevspace
+
+  \AxiomC{$r \in \Coverable(G, C, I)$}
+  \AxiomC{$\tup{r,w} \in G.\lRMW$}
+  \noLine
+  \BinaryInfC{$(w \in I \wedge I' = I) \vee (w \in G.\lW^{\rel\squq} \wedge I' = I \uplus \set{w})$}
+  \RightLabel{\RMWCoverStep}
+  \UnaryInfC{$G \vdash \tup{C, I} \travstep{\tup{r, w}} \tup{C \uplus \set{r, w}, I'}$}
+  \DisplayProof
+  \rulevspace
+
+\caption{Операционная семантика обхода \IMM графа.}
+\label{fig:trav-opsem}
+\end{center}
+\end{figure}
