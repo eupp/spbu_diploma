@@ -119,7 +119,7 @@
 \begin{definition}
   \label{def:exec-graph}
   \emph{Граф сценария исполнения} (\emph{execution graph}) $G$ 
-  это кортеж $\tup{\lE, \lTID, \lLAB, \lPO, \lRF, \lCO}$.
+  это кортеж $\tup{\lE, \lTID, \lLAB, \lPO, \lRMW, \lRF, \lCO}$.
   Рассмотрим определения каждого компонента этого кортежа. 
   \begin{itemize}
 
@@ -155,6 +155,16 @@
       \begin{equation*}
         \lPOimm \defeq \lPO \setminus (\lPO \seq \lPO)
       \end{equation*}
+
+    \item $\lRMW \suq \lRex \seq \lPOimm \cap \lEQLOC \seq \lWex$ ---
+      отношение соединяющие \emph{атомарные пары событий чтения-записи}. 
+      Тот факт, что пара событий принадлежит этому отношению,
+      то есть $\tup{r, w} \in \lRMW$, означает, что данная пара
+      соответствует исполнению одной инструкции атомарного чтения-записи.
+      Примерами таких инструкций является 
+      инструкция \emph{атомарного инкремента} (\emph{fetch-and-add}, \FADD), 
+      или инструкция \emph{атомарного сравнения с обменом} 
+      (\emph{compare-and-swap}, \CAS).
 
     \item $\lRF \suq [\lW] \seq \lEQLOC \cap \lEQVAL \seq [\lR]$ --- это отношение 
       \emph{читает-из} (\emph{reads-from}), которое соединяет 
@@ -467,7 +477,7 @@ $\ese{1}{2}{1}$ и $\ese{1}{2}{2}$.
 \begin{definition}
   \label{def:eventstruct}
   \emph{Структура событий \Wkm} (\emph{\Wkm event structure}) $S$ 
-  это кортеж $\tup{\lE, \lTID, \lLAB, \lPO, \lJF, \lEW, \lCO}$.
+  это кортеж $\tup{\lE, \lTID, \lLAB, \lPO, \lRMW, \lJF, \lEW, \lCO}$.
   Рассмотрим определения каждого компонента этого кортежа. 
   \begin{itemize}
 
@@ -493,7 +503,9 @@ $\ese{1}{2}{1}$ и $\ese{1}{2}{2}$.
         \lCFimm \defeq \lCF \cap (\lPOimm^{-1} \seq \lPOimm)
       \end{equation*}
 
-
+    \item Отношение $\lRMW$ определено по аналогии
+      с графами сценариев исполнения (\cref{def:exec-graph}).
+    
     \item $\lJF \suq [\lW] \seq (\lEQLOC \cap \lEQVAL) \seq [\lR]$ --- 
       это отношение \emph{обоснован-из} (\emph{justified-from}). Оно связывает
       событие записи с событиями чтения, которые обоснованы данной записью.
