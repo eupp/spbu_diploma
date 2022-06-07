@@ -31,14 +31,13 @@
   \draw[jf,bend right=10] (init) edge node[above] {\scriptsize$\lJF$} (i01);
   \draw[po]   (init) edge node[right] {} (i01);
 
-  %% \begin{scope}[on background layer]
-    %% \draw[extractStyle] ($(init)  + (-1.13,0.55)$) rectangle ++(1.45,-5.1);
-
-    %\node at (0.4, 1.3) {\large $\SXb$};
-  %%   \phantom{\node at (-0.4, 1.3) {\large $X_b$};}
-  %% \end{scope}
+  \begin{scope}[on background layer]
+    \draw[extractStyle] ($(init)  + (-1.13,0.55)$) rectangle ++(1.45,-5.1);
+    %% \node at (0.4, 1.3) {\large $\SXb$};
+    %% \phantom{\node at (-0.4, 1.3) {\large $X_b$};}
+  \end{scope}
 \end{tikzpicture}
-  \caption{Структура $S_b$.}
+  \caption{Структура $S_b$ и конфигурация $X_b$.}
   \label{fig:es-ex:b}
   \end{subfigure}
   \vspace{1ex}

@@ -25,7 +25,9 @@
 
   \draw[po] (init) edge node[left]  {\small$\lPO$} (i11);
   \draw[po] (init) edge node[right] {\small$\lPO$} (i21);
-  \end{tikzpicture}
+
+  \node (hh) at (-1.5, 1.5) {$\GLBndep$};
+s  \end{tikzpicture}
   \caption{Граф соответствующий программе \ref{ex:LB-nodep}.}
   \label{fig:LB-nodep-ppo-exec}
   \end{subfigure}\hfill
@@ -53,6 +55,8 @@
 
   \draw[po] (init) edge node[left]  {\small$\lPO$} (i11);
   \draw[po] (init) edge node[right] {\small$\lPO$} (i21);
+
+  \node (hh) at (-1.5, 1.5) {$\GLBdep$};
   \end{tikzpicture}
   \caption{Граф соответствующий программам 
     \ref{ex:LB-fakedep}~и~\ref{ex:LB-dep}.

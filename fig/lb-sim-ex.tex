@@ -1,5 +1,6 @@
 \begin{figure}[h]
 \hfill
+\begin{subfigure}{0.45\textwidth}\centering
 \begin{equation}
   \inarrII{
   \readInst{}{r_1}{x} \rfcomment{1} \\[1mm]
@@ -12,9 +13,10 @@
 }
 \tag{LB-trav}\label{ex:LB-trav}
 \end{equation}
-\hfill\vrule\hfill
+\end{subfigure}\hfill\vrule\hfill%
+\begin{subfigure}{0.45\textwidth}\centering
 $\inarr{\begin{tikzpicture}[xscale=1,yscale=1.5]
-  \node (init) at (2,  1)  {$\Init$};
+  \node (init) at (2,  1)   {$\Init$};
   \node (i11)  at (0,  0)   {$\mese{1}{1}{} \rlab{}{x}{1}$};
   \node (i12)  at (0, -1)   {$\mese{1}{2}{} \wlab{}{y}{1}$};
   \node (i13)  at (0, -2)   {$\mese{1}{3}{} \wlab{}{z}{1}$};
@@ -32,7 +34,9 @@ $\inarr{\begin{tikzpicture}[xscale=1,yscale=1.5]
   \draw[po] (i12)  edge (i13);
   \draw[po] (i21)  edge (i22);
   \draw[po] (i22)  edge (i23);
+  \node (hh) at (-1, 1) {$\GTrav$};
 \end{tikzpicture}}$
+\end{subfigure}
 \caption{Пример программы и соответствующий ей \IMM граф}
 \label{fig:lb-sim-ex}
 \end{figure}

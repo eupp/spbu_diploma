@@ -164,7 +164,7 @@ $G \vdash \TCinit{G} \travstep{}^* \TCfinal{G}$.
 \subsection{Пример построения структуры событий}
 
 Рассмотрим процесс симуляции на примере
-обхода графа $\Glb$ программы $\proglb \defeq \text{\ref{ex:LB-nodep}}$,
+обхода графа $\GLBndep$ программы $\progLBndep \defeq \text{\ref{ex:LB-nodep}}$,
 продемонстрированного на \cref{fig:trav-ex}.
 Процесс построения структуры событий,
 симулирующей данный обход, совпадает с процессом,
@@ -194,7 +194,7 @@ $\mese{1}{2}{1} \wlab{}{y}{1}$ (\cref{fig:es-ex:b}).
 Далее можно показать, что для конфигурации обхода $TC_a$,
 структуры событий $S_b$ и ее конфигурации $X_b$
 выполняется отношение симуляции:
-$\simrel(\proglb, \lTID(\proglb), \Glb, \TC_a, S_b, X_b)$.
+$\simrel(\progLBndep, \lTID(\progLBndep), \GLBndep, \TC_a, S_b, X_b)$.
 
 \todo{Имена для графов?}
 
@@ -216,7 +216,7 @@ $\simrel(\proglb, \lTID(\proglb), \Glb, \TC_a, S_b, X_b)$.
 в структуру событий (\cref{fig:es-ex:d}).
 Для обновленной конфигураци обхода и структуры событий
 будет выполняться отношение симуляции:
-$\simrel(\proglb, \lTID(\proglb), \Glb, \TC_b, S_d, X_d)$.
+$\simrel(\progLBndep, \lTID(\progLBndep), \GLBndep, \TC_b, S_d, X_d)$.
 
 На третьем шаге обхода покрывается событие чтения
 $\mese{1}{1}{} \rlab{}{x}{1}$ (\cref{fig:trav-exC}).
@@ -241,7 +241,7 @@ $\mese{1}{1}{2} \rlab{}{x}{1}$ (\cref{fig:es-ex:e}),
 эквивалентным событию записи $\ese{1}{2}{1}$.
 Этот факт позволяет сформировать подходящую
 конфигурацию $X_f$, такую что выполняется
-$\simrel(\proglb, \lTID(\proglb), \Glb, \TC_c, S_f, X_f)$.
+$\simrel(\progLBndep, \lTID(\progLBndep), \GLBndep, \TC_c, S_f, X_f)$.
 
 Для того, чтобы симулировать оставшиеся шаги обхода графа
 (\cref{fig:trav-exD,fig:trav-exE,fig:trav-exF})
@@ -249,11 +249,11 @@ $\simrel(\proglb, \lTID(\proglb), \Glb, \TC_c, S_f, X_f)$.
 так как она уже содержит все необходимые события. 
 Достаточно лишь показать, что выполняются следующие утверждения:
 \begin{itemize}
-  \item $\simrel(\proglb, \lTID(\proglb), \Glb, \TC_d, S_f, X_f)$,
-  \item $\simrel(\proglb, \lTID(\proglb), \Glb, \TC_e, S_f, X_f)$,
-  \item $\simrel(\proglb, \lTID(\proglb), \Glb, \TC_f, S_f, X_f)$.
+  \item $\simrel(\progLBndep, \lTID(\progLBndep), \GLBndep, \TC_d, S_f, X_f)$,
+  \item $\simrel(\progLBndep, \lTID(\progLBndep), \GLBndep, \TC_e, S_f, X_f)$,
+  \item $\simrel(\progLBndep, \lTID(\progLBndep), \GLBndep, \TC_f, S_f, X_f)$.
 \end{itemize}
 На этом процесс симуляции оканчивается.
 Как можно видеть, граф, индуцированный конфигурацией $X_f$,
-изоморфен начальному графу $\Glb$.
+изоморфен начальному графу $\GLBndep$.
 Данное наблюдение завершает доказательство.
