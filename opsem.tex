@@ -1,0 +1,182 @@
+\newcommand{\AddPORule}{(Add $\lPO$)\xspace}
+\newcommand{\AddJFRule}{(Add $\lJF$)\xspace}
+\newcommand{\AddEWRule}{(Add $\lEW$)\xspace}
+\newcommand{\AddCORule}{(Add $\lCO$)\xspace}
+\newcommand{\AddRMWRule}{(Add $\lRMW$)\xspace}
+\newcommand{\AddFRule}{(Add $\lF$)\xspace}
+\newcommand{\AddRRule}{(Add $\lR$)\xspace}
+\newcommand{\AddWRule}{(Add $\lW$)\xspace}
+\newcommand{\AddEventRule}{(Add Event)\xspace}
+
+\begin{figure}[b]
+\begin{center}
+\[\def\arraystretch{1}
+\begin{array}{rcl}
+
+  \deltapo(e, e')     & \defeq & \dwset{e}{S.\lPO} \times \set{e'}         \\
+
+  \deltarmw(r, w)     & \defeq & \kw{if}~ w \in \lWex \kw{then} 
+                                 \set{\tup{r, w}}     \kw{else} \emptyset  \\
+
+  \deltajf(w, r)      & \defeq & \set{\tup{w, r}}                          \\
+
+  \deltaew(EW, w')    & \defeq 
+    & \set{\tup{w', w'}} \cup EW \times \set{w'} \cup \set{w'} \times EW   \\
+
+  \deltaco(EW, W, w') & \defeq &
+      \kw{let}~ \widehat{W} = \cod{S.\lCO \setminus W \times (W \cup EW)} \kw{in}   \\
+  & & W \times \set{w'} \cup \set{w'} \times \widehat{W}                            \\
+
+\end{array}
+\]
+\caption{Вспомогательные определения для операционной семантики.}
+\label{fig:wkmo-opsem-deltas}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+  \footnotesize
+
+  \AxiomC{$e \in S.\lE$}
+  \AxiomC{$e' \not\in S.\lE$}
+  \noLine
+  \BinaryInfC{$S'.\lE = S.\lE \uplus \set{e'}$}
+
+  \AxiomC{$\lCONT(e) = \thrdst$}
+  \AxiomC{$\thrdst \thrdstep{l} \thrdst'$}
+  \noLine
+  \BinaryInfC{$\lCONT' = \updmap{\lCONT}{e'}{\thrdst'}$}
+  \noLine
+  \UnaryInfC{$S'.\lPO = S.\lPO \cup \deltapo(e, e')$}
+
+  \RightLabel{\AddPORule}
+  \BinaryInfC{$ \tup{S, \lCONT} \esaddpo{\tup{e', l}} \tup{S', \lCONT'} $}
+  \DisplayProof
+  \rulevspace
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \AxiomC{$r \in S. \lE \cap \lRex_{x}$}
+  \noLine
+  \UnaryInfC{$w \in S'.\lE \cap \lW_{x}$}
+
+  \AxiomC{$\tup{r, w} \in S'.\lPOimm$}
+  \noLine
+  \UnaryInfC{$S'.\lRMW = S.\lRMW \cup \deltarmw(r, w)$}
+
+  \RightLabel{\AddRMWRule}
+  \BinaryInfC{$ \tup{S, \lCONT} \esaddrmw{\tup{w, \wlab{o}{x}{v}}} \tup{S', \lCONT'} $}
+  \DisplayProof
+  \rulevspace
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \AxiomC{$w \in S .\lE \cap \lW_{x}$}
+  \AxiomC{$r \in S'.\lE \cap \lR_{x}$}
+  \noLine
+  \BinaryInfC{$S.\lVAL(w) = S'.\lVAL(r) = v$}
+
+  \AxiomC{$\tup{w, r} \not\in S'.\lCF$}
+  \noLine
+  \UnaryInfC{$S'.\lJF = S.\lJF \cup \deltajf(w, r)$}
+
+  \RightLabel{\AddJFRule}
+  \BinaryInfC{$ \tup{S, \lCONT} \esaddjf{\tup{r, \rlab{o}{x}{v}}} \tup{S', \lCONT'} $}
+  \DisplayProof
+  \rulevspace
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \AxiomC{$EW \subseteq S .\lE \cap \lW_{x}^{\rlx}$}
+  \AxiomC{$w' \in S'.\lE \cap \lW_{x}$}
+  \noLine
+  \BinaryInfC{$\forall w \in EW \ldotp S.\lMOD(w) = S'.\lMOD(w')$}
+  \noLine
+  \UnaryInfC{$\forall w \in EW \ldotp S.\lVAL(w) = S'.\lVAL(w') = v$}
+
+  \AxiomC{$EW \times \set{w} \subseteq S'.\lCF$}
+  \noLine
+  \UnaryInfC{$EW$ is $S.\lEW$ equivalence class}
+  \noLine
+  \UnaryInfC{$S'.\lEW = S.\lEW \cup \deltaew(EW, w)$}
+
+  \RightLabel{\AddEWRule}
+  \BinaryInfC{$ \tup{S, \lCONT} \esaddew{\tup{w', \wlab{o}{x}{v}}} \tup{S', \lCONT'} $}
+  \DisplayProof
+  \rulevspace
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \AxiomC{$W \subseteq S .\lE \cap \lW_{x}$}
+  \noLine
+  \UnaryInfC{$w' \in S'.\lE \cap \lW_{x}$}
+
+  \AxiomC{$W$ is $S.\lCO$ closed}
+  \AxiomC{$W \cap EW = \emptyset$}
+  \noLine
+  \BinaryInfC{$EW = \dom{S'.\lEW \seq [w']} \setminus \set{w'}$}
+  \noLine
+  \UnaryInfC{$S'.\lCO = S.\lCO \cup \deltaco(EW, W, w')$}
+
+  \RightLabel{\AddCORule}
+  \BinaryInfC{$ \tup{S, \lCONT} \esaddco{\tup{w', \wlab{o}{x}{v}}} \tup{S', \lCONT'} $}
+  \DisplayProof
+  \rulevspace
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \AxiomC{$l = \flab{o}$}
+  %
+  \AxiomC{\phantom{$\tup{S, \lCONT} \esaddpo{\tup{e, l}} \tup{S', \lCONT'}$}}
+  \noLine
+  \UnaryInfC{$\tup{S, \lCONT} \esaddpo{\tup{e, l}} \tup{S', \lCONT'}$}
+  %
+  \RightLabel{\AddFRule}
+  \BinaryInfC{$ \tup{S, \lCONT} \esstep{\tup{e, l}} \tup{S', \lCONT'} $}
+  \DisplayProof%
+  \rulehskip
+  %
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %
+  \AxiomC{$l = \rlab{o}{x}{v}$}
+  \AxiomC{$\tup{S, \lCONT} \esaddpo{\tup{e, l}} \tup{S', \lCONT'}$}
+  \noLine
+  \UnaryInfC{$\tup{S, \lCONT} \esaddjf{\tup{e, l}} \tup{S', \lCONT'}$}
+  %
+  \RightLabel{\AddRRule}
+  \BinaryInfC{$ \tup{S, \lCONT} \esstep{\tup{e, l}} \tup{S', \lCONT'} $}
+  \DisplayProof
+  \rulevspace
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \AxiomC{$l = \wlab{o}{x}{v}$}
+
+  \AxiomC{$\tup{S, \lCONT} \esaddpo{\tup{e, l}} \tup{S', \lCONT'}$}
+  \noLine
+  \UnaryInfC{$\tup{S, \lCONT} \esaddrmw{\tup{e, l}} \tup{S', \lCONT'}$}
+
+  \AxiomC{$\tup{S, \lCONT} \esaddew{\tup{e, l}} \tup{S', \lCONT'}$}
+  \noLine
+  \UnaryInfC{$\tup{S, \lCONT} \esaddco{\tup{e, l}} \tup{S', \lCONT'}$}
+
+  \RightLabel{\AddWRule}
+  \TrinaryInfC{$ \tup{S, \lCONT} \esstep{\tup{e, l}} \tup{S', \lCONT'} $}
+  \DisplayProof
+  \rulevspace
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \AxiomC{$\tup{S, \lCONT} \esstep{\tup{e, l}} \tup{S', \lCONT'}$}
+  \AxiomC{$S'$ is consistent}
+
+  \RightLabel{\AddEventRule}
+  \BinaryInfC{$ \tup{S, \lCONT} \esstepcons{\tup{e, l}} \tup{S', \lCONT'} $}
+  \DisplayProof
+  \rulevspace
+
+\caption{Операционная семантика построения структуры событий \Wkm.}
+\label{fig:wkmo-opsem}
+\end{center}
+\end{figure}

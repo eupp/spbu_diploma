@@ -121,6 +121,7 @@
 
 % to denote some state
 \newcommand{\state}{\sigma}
+\newcommand{\thrdst}{\sigma}
 
 % set of states
 \newcommand{\State}{\mathbb{S}}
@@ -216,8 +217,8 @@
 \newcommand{\lR}{{\mathtt{R}}}
 \newcommand{\lW}{{\mathtt{W}}}
 \newcommand{\lF}{{\mathtt{F}}}
-\newcommand{\lRex}{\lR_{\isex}}
-\newcommand{\lWex}{\lW_{\isex}}
+\newcommand{\lRex}{\lR^{\isex}}
+\newcommand{\lWex}{\lW^{\isex}}
 \newcommand{\lTS}{\mathtt{TS}}
 \newcommand{\lTE}{\mathtt{TE}}
 
@@ -255,6 +256,8 @@
 \newcommand{\lEQTID}{=_{\lTID}}
 \newcommand{\lEQLOC}{=_{\lLOC}}
 \newcommand{\lEQVAL}{=_{\lVAL}}
+
+\newcommand{\lCONT}{{\Psi}}
 
 \colorlet{colorPO}{gray!60!black}
 \colorlet{colorPPO}{magenta}
@@ -419,6 +422,12 @@
 \newcommand{\esstepcons}[1]{\xhookrightarrow{#1}}
 \newcommand{\travstep}[1]{\xrightarrow{#1}}
 
+\newcommand{\deltapo}{\Delta_{\lPO}}
+\newcommand{\deltajf}{\Delta_{\lJF}}
+\newcommand{\deltaew}{\Delta_{\lEW}}
+\newcommand{\deltaco}{\Delta_{\lCO}}
+\newcommand{\deltarmw}{\Delta_{\lRMW}}
+
 \newcommand{\TC}{TC}
 \newcommand{\TCinit}[1]{\TC_{\mathrm{init}}({#1})}
 \newcommand{\TCfinal}[1]{\TC_{\mathrm{final}}({#1})}
@@ -497,6 +506,10 @@
 \newcommand{\inarrIII}[3]{\begin{array}{@{}l@{~~}||@{~~}l@{~~}||@{~~}l@{}}\inarr{#1}&\inarr{#2}&\inarr{#3}\end{array}}
 \newcommand{\inarrIV}[4]{\begin{array}{@{}l@{~~}||@{~~}l@{~~}||@{~~}l@{~~}||@{~~}l@{}}\inarr{#1}&\inarr{#2}&\inarr{#3}&\inarr{#4}\end{array}}
 \newcommand{\inarrV}[5]{\begin{array}{@{}l@{~~}||@{~~}l@{~~}||@{~~}l@{~~}||@{~~}l@{~~}||@{~~}l@{}}\inarr{#1}&\inarr{#2}&\inarr{#3}&\inarr{#4}&\inarr{#5}\end{array}}
+
+\newcommand{\textdom}[1]{\mathsf{#1}}
+\newcommand{\textcode}[1]{\texorpdfstring{\texttt{#1}}{#1}}
+\newcommand{\kw}[1]{\textbf{\textcode{#1}}\;}
 
 \newcommand{\readExpr }[2]{{#2}^{#1}}
 \newcommand{\readInst }[3]{#2 \;{:=}\;{#3}^{#1}}
@@ -623,7 +636,7 @@
 
 %% for proof trees
 \newcommand{\rulehskip}{\hskip 1.5em}
-\newcommand{\rulevspace}{\vspace{3em}}
+\newcommand{\rulevspace}{\vspace{2em}}
 
 %% for comments
 \newcommand{\eupp}[1]{{\color{orange!70!black}\textbf{Evgenii: #1}}}
